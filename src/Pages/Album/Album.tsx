@@ -1,10 +1,16 @@
 import { useState, useMemo } from 'react'
-import { Block, Heading, Level, Box, Icon, Button } from "react-bulma-components";
-import styled from 'styled-components';
-import AutoCompleteCodes from '../../Components/AutoCompleteCodes/AutoCompleteCodes';
-import { useSupabaseContext } from '../../Contexts/SupabaseContext';
-import Figure from '../../Figure';
-import { Album, useAlbumStore } from '../../Stores/Album';
+import { Block, Heading, Level, Icon, Button } from 'react-bulma-components'
+import styled from 'styled-components'
+import AutoCompleteCodes from '../../Components/AutoCompleteCodes/AutoCompleteCodes'
+import { useSupabaseContext } from '../../Contexts/SupabaseContext'
+import Figure from '../../Figure'
+import WithMenuBar from '../../Layouts/WithMenuBar'
+import { Album, useAlbumStore } from '../../Stores/Album'
+
+const SectionStyled = styled(Block)`
+  display: grid;
+  grid-template-columns: repeat(6, auto);
+`
 
 const SubstractIcon = styled(Icon)<{ active: boolean }>`
   border: 1px solid red;
@@ -40,6 +46,9 @@ const AlbumContatinerStyled = styled(Block)`
   flex-grow: 1;
   overflow-y: scroll;
   padding-top: 1rem;
+  >div:last-child {
+    margin-bottom: 3.8rem;
+  }
 `
 
 const ContainerStyled = styled(Block)`
@@ -47,6 +56,7 @@ const ContainerStyled = styled(Block)`
   height: 100vh;
   display: flex;
   flex-direction: column;
+  margin-bottom: 0px;
 `
 
 const AlbumPage = () => {
@@ -54,50 +64,50 @@ const AlbumPage = () => {
   const [isRepeatedMode, setIsRepeatedMode] = useState(false)
   const [filterStickers, setFilterStickers] = useState<Album | null>()
   const { album, id: idAlbum, setAlbum } = useAlbumStore((state) => state)
-  const { supabase } = useSupabaseContext();
+  const { supabase } = useSupabaseContext()
 
-  async function increaseOneOnRepeatSticker(code: string, number: string, isSubtractMode: boolean) {
-    if( album ) {
-      const codeFigures = album[code].figures;
+  async function increaseOneOnRepeatSticker (code: string, number: string, isSubtractMode: boolean) {
+    if (album != null) {
+      const codeFigures = album[code].figures
       const newFiguresPerCode = codeFigures.map((sticker) => {
-        if(sticker.value === number) {
-          let newValue = 0;
+        if (sticker.value === number) {
+          let newValue = 0
           if (isSubtractMode && sticker.repeat > 0) {
-            newValue = sticker.repeat - 1;
+            newValue = sticker.repeat - 1
           }
-          if(!isSubtractMode) {
-            newValue = sticker.repeat + 1;
-
+          if (!isSubtractMode) {
+            newValue = sticker.repeat + 1
           }
-          return { ...sticker, repeat: newValue };
+          return { ...sticker, repeat: newValue }
         }
-        return sticker;
+        return sticker
       })
       try {
         const { data, error } = await supabase
           .from('albums')
           .update(
-            { stickers: 
-              { 
-                ...album, 
-                [code]: { 
-                  figures: [...newFiguresPerCode] 
-                } 
-              } 
+            {
+              stickers:
+              {
+                ...album,
+                [code]: {
+                  figures: [...newFiguresPerCode]
+                }
+              }
             }
           ).match({ id: idAlbum }).select()
-        if (!error) {
+        if (error == null) {
           console.log(data)
           setAlbum(data[0].stickers)
         }
-      } catch(e) {
+      } catch (e) {
         console.warn(e)
       }
     }
   }
 
-  function filterAlbum(codeFilter: string) {
-    if(codeFilter && album) {
+  function filterAlbum (codeFilter: string) {
+    if (codeFilter && (album != null)) {
       setFilterStickers({ [codeFilter]: album[codeFilter] })
     } else {
       setFilterStickers(null)
@@ -105,88 +115,92 @@ const AlbumPage = () => {
   }
 
   const list = useMemo(() => {
-    return filterStickers ? filterStickers : album;
+    return (filterStickers != null) ? filterStickers : album
   }, [album, filterStickers])
 
   return (
-    <ContainerStyled>
-      <FiltersContainerStyled mb={0}>
-        <AutoCompleteCodes 
-          onItemSelected={filterAlbum}
-        />
-        <Button 
-          color={isSubtractMode ? "danger" : ""} 
-          size="small" 
-          mr={2}
-          onClick={() => { setIsSubtractMode(prevValue => !prevValue) }}
-          >
-          <SubstractIcon
-            color="danger"
-            size="small"
-            mr={2}
-            active={isSubtractMode}
-          >
-            <i className="fa-solid fa-minus"></i>
-          </SubstractIcon>
-          <span>Restar</span>
-        </Button>
-        <Button 
-          color={isRepeatedMode ? "warning": ""}
-          size="small" 
-          mr={2}
-          onClick={() => { setIsRepeatedMode(prevValue => !prevValue) }}
-        >
-          <RepeatIcon
-            color="warning"
-            size="large"
-            mr={2}
-            active={isRepeatedMode}
-          >
-            <i className="fa-solid fa-repeat"></i>
-          </RepeatIcon>
-          <span>Repetidas</span>
-        </Button>
-        <Button color="" size="small">
-          <Icon
-            color="link"
-            size="small"
+    <WithMenuBar>
+      <ContainerStyled>
+        <FiltersContainerStyled mb={0}>
+          <AutoCompleteCodes
+            onItemSelected={filterAlbum}
+            />
+          <Button
+            color={isSubtractMode ? 'danger' : ''}
+            size='small'
             mr={2}
             onClick={() => { setIsSubtractMode(prevValue => !prevValue) }}
           >
-            <i className="fa-solid fa-ghost"></i>
-          </Icon>
-          <span>Faltantes</span>
-        </Button>
-      </FiltersContainerStyled>
-      <AlbumContatinerStyled>
-        {list ? Object.keys(list).map((code) => {
-          return (
-            <Level.Side key={code}>
-              <Level.Item>
-                <Heading >
-                  {code}
-                </Heading>
-              </Level.Item>
-              <Block justifyContent="center" display="flex" flexWrap="wrap">
-                {list[code].figures.map(({ value, repeat }) => {
-                  return (
-                    <Figure 
-                      key={`${code}-${value}`} 
-                      albumNumber={value} 
-                      timesRepeat={repeat} 
-                      onClick={() => {increaseOneOnRepeatSticker(code, value, isSubtractMode)}}
-                      />
-                  )
-                })}
-              </Block>
-            </Level.Side>
-          )
-        }): null}
-      </AlbumContatinerStyled>
-    </ContainerStyled>
+            <SubstractIcon
+              color='danger'
+              size='small'
+              mr={2}
+              active={isSubtractMode}
+            >
+              <i className='fa-solid fa-minus' />
+            </SubstractIcon>
+            <span>Restar</span>
+          </Button>
+          <Button
+            color={isRepeatedMode ? 'warning' : ''}
+            size='small'
+            mr={2}
+            onClick={() => { setIsRepeatedMode(prevValue => !prevValue) }}
+          >
+            <RepeatIcon
+              color='warning'
+              size='large'
+              mr={2}
+              active={isRepeatedMode}
+            >
+              <i className='fa-solid fa-repeat' />
+            </RepeatIcon>
+            <span>Repetidas</span>
+          </Button>
+          <Button color='' size='small'>
+            <Icon
+              color='link'
+              size='small'
+              mr={2}
+              onClick={() => { setIsSubtractMode(prevValue => !prevValue) }}
+            >
+              <i className='fa-solid fa-ghost' />
+            </Icon>
+            <span>Faltantes</span>
+          </Button>
+        </FiltersContainerStyled>
+        <AlbumContatinerStyled>
+          {(list != null)
+            ? Object.keys(list).map((code) => {
+              return (
+                <Level.Side key={code}>
+                  <Level.Item mt={1}>
+                    <Heading>
+                      {code}
+                    </Heading>
+                  </Level.Item>
+                  <SectionStyled justifyContent='center'>
+                    {list[code].figures.map(({ value, repeat }) => {
+                      return (
+                        <Figure
+                          key={`${code}-${value}`}
+                          albumNumber={value}
+                          timesRepeat={repeat}
+                          onClick={() => { increaseOneOnRepeatSticker(code, value, isSubtractMode) }}
+                          />
+                      )
+                    })}
+                  </SectionStyled>
+                </Level.Side>
+              )
+            })
+            : null}
+        </AlbumContatinerStyled>
+      </ContainerStyled>
+    </WithMenuBar>
     
-  )
 
+  )
 }
 
-export default AlbumPage;
+export default AlbumPage

@@ -1,9 +1,9 @@
-import { Block, Button } from "react-bulma-components"
-import styled from "styled-components"
+import { Block, Button } from 'react-bulma-components'
+import styled from 'styled-components'
 const REPEATXCOLOR = {
   0: { color: 'info', outlined: true },
-  1: { color:  'success', outlined: false },
-  2: { color:  'danger', outlined: false }
+  1: { color: 'success', outlined: false },
+  2: { color: 'danger', outlined: false }
 }
 
 const FigureContainerStyled = styled(Block)`
@@ -24,13 +24,12 @@ const RepetedStyled = styled(Block)`
 `
 
 interface FigureProps {
-  albumNumber: string; 
-  timesRepeat: number;
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  albumNumber: string
+  timesRepeat: number
+  onClick: React.MouseEventHandler<HTMLButtonElement>
 }
-export default function Figure({ albumNumber, timesRepeat, onClick }: FigureProps) {
-
-  function colorByTimesRepeated() {
+export default function Figure ({ albumNumber, timesRepeat, onClick }: FigureProps) {
+  function colorByTimesRepeated () {
     if (timesRepeat >= 2) {
       return REPEATXCOLOR[2]
     }
@@ -38,12 +37,11 @@ export default function Figure({ albumNumber, timesRepeat, onClick }: FigureProp
   }
 
   return (
-    <FigureContainerStyled m="0" p="1">
-      { timesRepeat >= 2 ? <RepetedStyled marginless textWeight="semibold" p="1" >+ {timesRepeat}</RepetedStyled>: null }
-          <Button textSize="6" textWeight="light" p="3" m="1" rounded {...colorByTimesRepeated()} onClick={onClick}>
+    <FigureContainerStyled m='0' p='1'>
+      {timesRepeat >= 2 ? <RepetedStyled marginless textWeight='semibold' p='1'>+ {timesRepeat}</RepetedStyled> : null}
+      <Button textSize='6' textWeight='light' p='3' m='1' rounded {...colorByTimesRepeated()} onClick={onClick}>
         {albumNumber}
       </Button>
     </FigureContainerStyled>
   )
 }
-

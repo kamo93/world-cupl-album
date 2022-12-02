@@ -1,2696 +1,2696 @@
 interface Figure {
-  value: string;
-  repeat: number;
+  value: string
+  repeat: number
 }
 
 interface Section {
-  figures: Figure[];
+  figures: Figure[]
 }
-type Album = { [key: string]: Section };
+interface Album { [key: string]: Section }
 
-const ALBUM: Album= {
-  'FCW': {
+const ALBUM: Album = {
+  FCW: {
     figures: [
       {
         value: '00',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '01',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '02',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '03',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '04',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '05',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '06',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '07',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '08',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '09',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '10',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '11',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '12',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '13',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '14',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '15',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '16',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '17',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '18',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '19',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '20',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '21',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '22',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '23',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '24',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '25',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '26',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '27',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '28',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '29',
-        repeat: 0,
-      },
+        repeat: 0
+      }
     ]
   },
-  'QAT': {
+  QAT: {
     figures: [
       {
         value: '01',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '02',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '03',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '04',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '05',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '06',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '07',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '08',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '09',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '10',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '11',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '12',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '13',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '14',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '15',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '16',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '17',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '18',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '19',
-        repeat: 0,
-      },
+        repeat: 0
+      }
     ]
   },
-  'ECU': {
+  ECU: {
     figures: [
       {
         value: '01',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '02',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '03',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '04',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '05',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '06',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '07',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '08',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '09',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '10',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '11',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '12',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '13',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '14',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '15',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '16',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '17',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '18',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '19',
-        repeat: 0,
-      },
+        repeat: 0
+      }
     ]
   },
-  'SEN': {
+  SEN: {
     figures: [
       {
         value: '01',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '02',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '03',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '04',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '05',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '06',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '07',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '08',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '09',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '10',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '11',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '12',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '13',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '14',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '15',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '16',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '17',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '18',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '19',
-        repeat: 0,
-      },
+        repeat: 0
+      }
     ]
   },
-  'NED': {
+  NED: {
     figures: [
       {
         value: '01',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '02',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '03',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '04',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '05',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '06',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '07',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '08',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '09',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '10',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '11',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '12',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '13',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '14',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '15',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '16',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '17',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '18',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '19',
-        repeat: 0,
-      },
+        repeat: 0
+      }
     ]
   },
-  'ENG': {
+  ENG: {
     figures: [
       {
         value: '01',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '02',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '03',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '04',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '05',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '06',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '07',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '08',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '09',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '10',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '11',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '12',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '13',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '14',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '15',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '16',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '17',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '18',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '19',
-        repeat: 0,
-      },
+        repeat: 0
+      }
     ]
   },
-  'IRN': {
+  IRN: {
     figures: [
       {
         value: '01',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '02',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '03',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '04',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '05',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '06',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '07',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '08',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '09',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '10',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '11',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '12',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '13',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '14',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '15',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '16',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '17',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '18',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '19',
-        repeat: 0,
-      },
+        repeat: 0
+      }
     ]
   },
-  'USA': {
+  USA: {
     figures: [
       {
         value: '01',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '02',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '03',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '04',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '05',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '06',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '07',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '08',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '09',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '10',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '11',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '12',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '13',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '14',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '15',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '16',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '17',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '18',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '19',
-        repeat: 0,
-      },
+        repeat: 0
+      }
     ]
   },
-  'WAL': {
+  WAL: {
     figures: [
       {
         value: '01',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '02',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '03',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '04',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '05',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '06',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '07',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '08',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '09',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '10',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '11',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '12',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '13',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '14',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '15',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '16',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '17',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '18',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '19',
-        repeat: 0,
-      },
+        repeat: 0
+      }
     ]
   },
-  'ARG': {
+  ARG: {
     figures: [
       {
         value: '01',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '02',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '03',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '04',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '05',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '06',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '07',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '08',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '09',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '10',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '11',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '12',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '13',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '14',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '15',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '16',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '17',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '18',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '19',
-        repeat: 0,
-      },
+        repeat: 0
+      }
     ]
   },
-  'KSA': {
+  KSA: {
     figures: [
       {
         value: '01',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '02',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '03',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '04',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '05',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '06',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '07',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '08',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '09',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '10',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '11',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '12',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '13',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '14',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '15',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '16',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '17',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '18',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '19',
-        repeat: 0,
-      },
+        repeat: 0
+      }
     ]
   },
-  'MEX': {
+  MEX: {
     figures: [
       {
         value: '01',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '02',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '03',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '04',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '05',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '06',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '07',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '08',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '09',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '10',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '11',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '12',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '13',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '14',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '15',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '16',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '17',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '18',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '19',
-        repeat: 0,
-      },
+        repeat: 0
+      }
     ]
   },
-  'POL': {
+  POL: {
     figures: [
       {
         value: '01',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '02',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '03',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '04',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '05',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '06',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '07',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '08',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '09',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '10',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '11',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '12',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '13',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '14',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '15',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '16',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '17',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '18',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '19',
-        repeat: 0,
-      },
+        repeat: 0
+      }
     ]
   },
-  'FRA': {
+  FRA: {
     figures: [
       {
         value: '01',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '02',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '03',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '04',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '05',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '06',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '07',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '08',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '09',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '10',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '11',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '12',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '13',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '14',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '15',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '16',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '17',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '18',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '19',
-        repeat: 0,
-      },
+        repeat: 0
+      }
     ]
   },
-  'AUS': {
+  AUS: {
     figures: [
       {
         value: '01',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '02',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '03',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '04',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '05',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '06',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '07',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '08',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '09',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '10',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '11',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '12',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '13',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '14',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '15',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '16',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '17',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '18',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '19',
-        repeat: 0,
-      },
+        repeat: 0
+      }
     ]
   },
-  'DEN': {
+  DEN: {
     figures: [
       {
         value: '01',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '02',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '03',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '04',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '05',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '06',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '07',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '08',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '09',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '10',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '11',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '12',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '13',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '14',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '15',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '16',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '17',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '18',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '19',
-        repeat: 0,
-      },
+        repeat: 0
+      }
     ]
   },
-  'TUN': {
+  TUN: {
     figures: [
       {
         value: '01',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '02',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '03',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '04',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '05',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '06',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '07',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '08',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '09',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '10',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '11',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '12',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '13',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '14',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '15',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '16',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '17',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '18',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '19',
-        repeat: 0,
-      },
+        repeat: 0
+      }
     ]
   },
-  'ESP': {
+  ESP: {
     figures: [
       {
         value: '01',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '02',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '03',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '04',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '05',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '06',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '07',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '08',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '09',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '10',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '11',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '12',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '13',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '14',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '15',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '16',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '17',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '18',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '19',
-        repeat: 0,
-      },
+        repeat: 0
+      }
     ]
   },
-  'CRC': {
+  CRC: {
     figures: [
       {
         value: '01',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '02',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '03',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '04',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '05',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '06',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '07',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '08',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '09',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '10',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '11',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '12',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '13',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '14',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '15',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '16',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '17',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '18',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '19',
-        repeat: 0,
-      },
+        repeat: 0
+      }
     ]
   },
-  'GER': {
+  GER: {
     figures: [
       {
         value: '01',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '02',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '03',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '04',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '05',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '06',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '07',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '08',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '09',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '10',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '11',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '12',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '13',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '14',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '15',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '16',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '17',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '18',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '19',
-        repeat: 0,
-      },
+        repeat: 0
+      }
     ]
   },
-  'JPN': {
+  JPN: {
     figures: [
       {
         value: '01',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '02',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '03',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '04',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '05',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '06',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '07',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '08',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '09',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '10',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '11',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '12',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '13',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '14',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '15',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '16',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '17',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '18',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '19',
-        repeat: 0,
-      },
+        repeat: 0
+      }
     ]
   },
-  'BEL': {
+  BEL: {
     figures: [
       {
         value: '01',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '02',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '03',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '04',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '05',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '06',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '07',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '08',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '09',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '10',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '11',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '12',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '13',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '14',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '15',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '16',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '17',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '18',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '19',
-        repeat: 0,
-      },
+        repeat: 0
+      }
     ]
   },
-  'CAN': {
+  CAN: {
     figures: [
       {
         value: '01',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '02',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '03',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '04',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '05',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '06',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '07',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '08',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '09',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '10',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '11',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '12',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '13',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '14',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '15',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '16',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '17',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '18',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '19',
-        repeat: 0,
-      },
+        repeat: 0
+      }
     ]
   },
-  'MAR': {
+  MAR: {
     figures: [
       {
         value: '01',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '02',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '03',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '04',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '05',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '06',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '07',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '08',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '09',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '10',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '11',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '12',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '13',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '14',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '15',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '16',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '17',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '18',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '19',
-        repeat: 0,
-      },
+        repeat: 0
+      }
     ]
   },
-  'CRO': {
+  CRO: {
     figures: [
       {
         value: '01',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '02',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '03',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '04',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '05',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '06',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '07',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '08',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '09',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '10',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '11',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '12',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '13',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '14',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '15',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '16',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '17',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '18',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '19',
-        repeat: 0,
-      },
+        repeat: 0
+      }
     ]
   },
-  'BRA': {
+  BRA: {
     figures: [
       {
         value: '01',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '02',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '03',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '04',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '05',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '06',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '07',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '08',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '09',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '10',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '11',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '12',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '13',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '14',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '15',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '16',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '17',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '18',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '19',
-        repeat: 0,
-      },
+        repeat: 0
+      }
     ]
   },
-  'SRB': {
+  SRB: {
     figures: [
       {
         value: '01',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '02',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '03',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '04',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '05',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '06',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '07',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '08',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '09',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '10',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '11',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '12',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '13',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '14',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '15',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '16',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '17',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '18',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '19',
-        repeat: 0,
-      },
+        repeat: 0
+      }
     ]
   },
-  'SUI': {
+  SUI: {
     figures: [
       {
         value: '01',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '02',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '03',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '04',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '05',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '06',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '07',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '08',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '09',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '10',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '11',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '12',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '13',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '14',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '15',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '16',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '17',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '18',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '19',
-        repeat: 0,
-      },
+        repeat: 0
+      }
     ]
   },
-  'CMR': {
+  CMR: {
     figures: [
       {
         value: '01',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '02',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '03',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '04',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '05',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '06',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '07',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '08',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '09',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '10',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '11',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '12',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '13',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '14',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '15',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '16',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '17',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '18',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '19',
-        repeat: 0,
-      },
+        repeat: 0
+      }
     ]
   },
-  'POR': {
+  POR: {
     figures: [
       {
         value: '01',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '02',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '03',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '04',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '05',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '06',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '07',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '08',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '09',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '10',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '11',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '12',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '13',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '14',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '15',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '16',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '17',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '18',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '19',
-        repeat: 0,
-      },
+        repeat: 0
+      }
     ]
   },
-  'GHA': {
+  GHA: {
     figures: [
       {
         value: '01',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '02',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '03',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '04',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '05',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '06',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '07',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '08',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '09',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '10',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '11',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '12',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '13',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '14',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '15',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '16',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '17',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '18',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '19',
-        repeat: 0,
-      },
+        repeat: 0
+      }
     ]
   },
-  'URU': {
+  URU: {
     figures: [
       {
         value: '01',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '02',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '03',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '04',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '05',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '06',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '07',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '08',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '09',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '10',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '11',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '12',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '13',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '14',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '15',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '16',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '17',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '18',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '19',
-        repeat: 0,
-      },
+        repeat: 0
+      }
     ]
   },
-  'KOR': {
+  KOR: {
     figures: [
       {
         value: '01',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '02',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '03',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '04',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '05',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '06',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '07',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '08',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '09',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '10',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '11',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '12',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '13',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '14',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '15',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '16',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '17',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '18',
-        repeat: 0,
+        repeat: 0
       },
       {
         value: '19',
-        repeat: 0,
-      },
+        repeat: 0
+      }
     ]
   }
 }

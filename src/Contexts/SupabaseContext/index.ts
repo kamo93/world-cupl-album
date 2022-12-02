@@ -1,2 +1,2 @@
-export * from './useSupabaseContext';
+export * from './useSupabaseContext'
 export * from './Provider'

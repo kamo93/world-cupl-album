@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState } from 'react'
 import { Form, Block, Columns, Icon } from 'react-bulma-components'
-import styled from 'styled-components';
+import styled from 'styled-components'
 import { ALBUM } from '../../Constants'
 
 const ListContainerStyled = styled(Columns)`
@@ -34,29 +34,29 @@ const EmptySearchIconStyled = styled(Icon)`
   }
 `
 
-const CODES = Object.keys(ALBUM);
+const CODES = Object.keys(ALBUM)
 
 interface AutoCompleteCodesProps {
-  onItemSelected: (value: any) => void;
+  onItemSelected: (value: any) => void
 }
 
 // TODO add errase filter button
-function AutoCompleteCodes({ onItemSelected }: AutoCompleteCodesProps) {
-  const [search, setSearch] = useState("");
-  const [showList, setShowList] = useState(false);
-  const [codes, setCodes] = useState(CODES);
+function AutoCompleteCodes ({ onItemSelected }: AutoCompleteCodesProps) {
+  const [search, setSearch] = useState('')
+  const [showList, setShowList] = useState(false)
+  const [codes, setCodes] = useState(CODES)
 
-  function shouldShowOption(value: string, label: string): boolean {
-    return label.toLowerCase().indexOf(value.toLowerCase()) > -1;
+  function shouldShowOption (value: string, label: string): boolean {
+    return label.toLowerCase().includes(value.toLowerCase())
   }
 
-  function resultExactMatch(list: Array<string>, str: string) {
+  function resultExactMatch (list: string[], str: string) {
     console.log({ list, str })
-    return list.length === 1 && list[0].toLowerCase() === str.toLowerCase();
+    return list.length === 1 && list[0].toLowerCase() === str.toLowerCase()
   }
 
   const handlerInputChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-    const val = ev.target.value;
+    const val = ev.target.value
     const newListCodes = CODES.filter((code) => shouldShowOption(val, code))
     if (resultExactMatch(newListCodes, val)) {
       setShowList(false)
@@ -81,38 +81,42 @@ function AutoCompleteCodes({ onItemSelected }: AutoCompleteCodesProps) {
 
   const handlerRemoveSearch = () => {
     setSearch('')
-    onItemSelected("")
+    onItemSelected('')
   }
 
   return (
     <ContainerStyled mb={3}>
       <Form.Field>
-        <Form.Control className="has-icons-right">
+        <Form.Control className='has-icons-right'>
           {
-            search ? 
-              <EmptySearchIconStyled align="right" color="dark" onClick={() => {handlerRemoveSearch()}}>
-                <i className="fa-solid fa-xmark"/>
-              </EmptySearchIconStyled> : null
+            search
+              ? <EmptySearchIconStyled align='right' color='dark' onClick={() => { handlerRemoveSearch() }}>
+                <i className='fa-solid fa-xmark' />
+                </EmptySearchIconStyled>
+              : null
           }
           <Form.Input
-            type="search"
-            placeholder="Busca la mona"
-            color="info"
+            type='search'
+            placeholder='Busca la mona'
+            color='info'
             onChange={handlerInputChange}
-            value={search} />
+            value={search}
+          />
         </Form.Control>
       </Form.Field>
       <ListContainerStyled.Column paddingless>
-        {showList ? codes.map((code) => {
-          return (
-            <ItemStyled key={code} onClick={() => handlerItemSelected(code)} marginless mobile={{ textAlign: 'center', textSize: 4 }}>
-              <span>{code}</span>
-            </ItemStyled>
-          )
-        }) : null}
+        {showList
+          ? codes.map((code) => {
+            return (
+              <ItemStyled key={code} onClick={() => handlerItemSelected(code)} marginless mobile={{ textAlign: 'center', textSize: 4 }}>
+                <span>{code}</span>
+              </ItemStyled>
+            )
+          })
+          : null}
       </ListContainerStyled.Column>
     </ContainerStyled>
   )
 }
 
-export default AutoCompleteCodes;
+export default AutoCompleteCodes
