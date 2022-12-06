@@ -8,3 +8,9 @@ Create a `.env.local` with the same key of the `.env` file and use your supabase
 pnpm install
 pnpm dev
 ```
+
+## New features
+- Add percetage with some animation like loading
+- total not hard coded but calculated
+- 
+
