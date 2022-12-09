@@ -10,7 +10,7 @@ pnpm dev
 ```
 
 ## New features
-- Add percetage with some animation like loading
 - total not hard coded but calculated
-- 
+- fix reload always go to first page
+- refactor stats page, break it on multiple components
 
