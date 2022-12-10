@@ -19,6 +19,7 @@ export interface AlbumState {
   increaseSticker: (code: string, number: string) => void
   totalMissingStickerCount: () => number
   totalRepeatedStickerCount: () => number
+  totalStickers: () => number
 }
 
 function repeatedStickers (album: Album): number {
@@ -37,6 +38,14 @@ function missingStickers (album: Album): number {
     const missingStickers = album[code].figures
       .filter(({ repeat }) => repeat === 0)
     count = count + missingStickers.length
+  })
+  return count
+}
+
+function getTotalStickers (album: Album): number {
+  let count: number = 0
+  Object.keys(album).forEach((code) => {
+    count = count + album[code].figures.length
   })
   return count
 }
@@ -69,15 +78,22 @@ export const useAlbumStore = create<AlbumState>()((set, get) => ({
   }, true),
   totalMissingStickerCount: () => {
     const { album } = get()
-    if (album != null) {
+    if (typeof album !== 'undefined') {
       return missingStickers(album)
     }
     return 0
   },
   totalRepeatedStickerCount: () => {
     const { album } = get()
-    if (album != null) {
+    if (typeof album !== 'undefined') {
       return repeatedStickers(album)
+    }
+    return 0
+  },
+  totalStickers: () => {
+    const { album } = get()
+    if (typeof album !== 'undefined') {
+      return getTotalStickers(album)
     }
     return 0
   }

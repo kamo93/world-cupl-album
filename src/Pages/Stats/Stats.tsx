@@ -2,6 +2,8 @@ import { Block } from 'react-bulma-components'
 import styled, { css, Keyframes, keyframes } from 'styled-components'
 import { useAlbumStore } from '../../Stores/Album'
 
+const TOTAL_DEGREES = 270
+
 function missingPercentage (missingStickersCount: number, total: number): string {
   return `${(((total - missingStickersCount) * 100) / total).toFixed(0)}`
 }
@@ -56,7 +58,7 @@ const TotalStickerStyled = styled.div<{ degrees: number }>`
     height: 200px;
     border-radius: 50%;
     border: none;
-    transform: rotate(270deg);
+    transform: rotate(${TOTAL_DEGREES}deg);
     background: conic-gradient(white 90deg, transparent 0deg); 
   }
   &::after {
@@ -89,7 +91,7 @@ function Stat ({ label, value }: StatProps): JSX.Element {
 }
 
 function TotalStatAnimated ({ percentageCompleted }: { percentageCompleted: number }): JSX.Element {
-  const totalInDegrees = ((percentageCompleted * 270) / 100).toFixed(0)
+  const totalInDegrees = ((percentageCompleted * TOTAL_DEGREES) / 100).toFixed(0)
   console.log('totalInDegrees', totalInDegrees)
   return (
     <TotalStickerStyled degrees={Number(totalInDegrees)}>
@@ -104,14 +106,14 @@ function TotalStatAnimated ({ percentageCompleted }: { percentageCompleted: numb
 function Stats (): JSX.Element {
   const repeatedStickerCount = useAlbumStore((state) => state.totalRepeatedStickerCount)
   const missingStickerCount = useAlbumStore((state) => state.totalMissingStickerCount)
-  console.log('render stats', missingPercentage(missingStickerCount(), 639))
+  const getTotalStickerCount = useAlbumStore((state) => state.totalStickers)
+
   return (
     <ContainerStatsStyled display='flex' flexDirection='column' justifyContent='center'>
-      <TotalStatAnimated percentageCompleted={Number(missingPercentage(missingStickerCount(), 639))} />
-      <Stat label='Total' value={`${639 - missingStickerCount()}`} />
-      <Stat label='Porcentaje completado' value={`${missingPercentage(missingStickerCount(), 639)}%`} />
-      <Stat label='Repetidas' value={`${repeatedStickerCount()}`} />
+      <TotalStatAnimated percentageCompleted={Number(missingPercentage(missingStickerCount(), getTotalStickerCount()))} />
+      <Stat label='Total' value={`${getTotalStickerCount() - missingStickerCount()}`} />
       <Stat label='Faltantes' value={`${missingStickerCount()}`} />
+      <Stat label='Repetidas' value={`${repeatedStickerCount()}`} />
     </ContainerStatsStyled>
   )
 }
