@@ -10,5 +10,8 @@ pnpm dev
 ```
 
 ## New features
-- fix reload always go to first page
+- add api based on fastify framework
+- move all supabase query to the new api
 
+## fix
+- fix reload always go to first page
