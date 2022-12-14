@@ -14,6 +14,7 @@ import { AuthChangeEvent } from '@supabase/supabase-js'
 import Cover from './Pages/Cover/Cover'
 import WithMenuBar from './Layouts/WithMenuBar'
 import Stats from './Pages/Stats/Stats'
+import Settings from './Pages/Settings/Settings'
 
 interface User {
   email: string
@@ -157,7 +158,7 @@ function Router (): JSX.Element {
         <Route path='/protected/user' element={<Testlayout />}>
           <Route path='/protected/user/album' element={<AlbumPage />} />
           <Route path='/protected/user/stats' element={<Stats />} />
-          <Route path='/protected/user/settings' element={<div>settings</div>} />
+          <Route path='/protected/user/settings' element={<Settings />} />
         </Route>
       </Route>
       <Route path='*' element={<Cover />} />
