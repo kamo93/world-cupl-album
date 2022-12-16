@@ -3,18 +3,25 @@
   "name": "futbol-album",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "build:api": "tsc --project api/tsconfig.json",
+    "watch:api": "tsc -w --project api/tsconfig.json",
+    "dev:api": "pnpm run build:api && concurrently -k -p \"[{name}]\" -n \"TypeScript,App\" -c \"yellow.bold,cyan.bold\" \"pnpm:watch:api\" \"pnpm:dev:api:start\"",
+    "dev:api:start": "fastify start --ignore-watch=.ts$ -w -l info -P api/dist/app.js",
     "preview": "vite preview",
-    "lint": "standard src/**/**.(ts|tsx)"
+    "lint": "standard src/**/**.(ts|tsx)",
+    "test": "fastify --help"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.2.1",
     "@supabase/supabase-js": "^2.1.1",
     "@types/styled-components": "^5.1.26",
     "bulma": "^0.9.4",
+    "fastify": "^4.10.2",
+    "fastify-cli": "^5.7.0",
+    "@fastify/autoload": "^5.0.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-bulma-components": "^4.1.0",
@@ -24,12 +31,16 @@
     "zustand": "^4.1.4"
   },
   "devDependencies": {
+    "@types/node": "^18.11.15",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.9",
     "@vitejs/plugin-react": "^2.2.0",
+    "concurrently": "^7.6.0",
     "eslint-plugin-react-refresh": "^0.2.1",
+    "fastify-tsconfig": "^1.0.1",
     "standard": "^17.0.0",
     "ts-standard": "^12.0.1",
+    "ts-node": "^10.4.0",
     "typescript": "^4.9.3",
     "vite": "^3.2.4",
     "vite-plugin-swc-react-refresh": "^2.2.1"
