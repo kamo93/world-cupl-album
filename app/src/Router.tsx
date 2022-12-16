@@ -111,6 +111,8 @@ function Router (): JSX.Element {
   async function getUserSession (): Promise<void> {
     try {
       console.log('refreshSession')
+      const test = await fetch('/api')
+      console.log(test)
       const { error } = await supabase.auth.refreshSession()
       console.log('refreshSession 2')
       if (error != null) {

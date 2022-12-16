@@ -2,12 +2,10 @@ import { defineConfig } from 'vite'
 import { swcReactRefresh } from 'vite-plugin-swc-react-refresh'
 import { join, resolve } from 'path'
 
-console.log('jon', join(__dirname, 'src/app'))
-console.log('jon', resolve(__dirname, 'src/app'))
 // https://vitejs.dev/config/
 export default defineConfig({
   root: resolve(__dirname, 'app'),
-  publicDir: resolve(__dirname, 'app/public'),
+  publicDir: resolve(__dirname, 'public'),
   clearScreen: false,
   build: {
     outDir: resolve(__dirname, 'dist'),
@@ -17,6 +15,11 @@ export default defineConfig({
   plugins: [swcReactRefresh()],
   esbuild: { jsx: 'automatic' },
   server: {
-    open: true
+    open: true,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000'
+      }
+    }
   }
 })

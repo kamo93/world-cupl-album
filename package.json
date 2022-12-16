@@ -3,13 +3,17 @@
   "name": "futbol-album",
   "private": true,
   "version": "0.0.0",
+  "engines": {
+    "node": ">=14.18.0"
+  },
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "build:api": "tsc --project api/tsconfig.json",
-    "watch:api": "tsc -w --project api/tsconfig.json",
-    "dev:api": "pnpm run build:api && concurrently -k -p \"[{name}]\" -n \"TypeScript,App\" -c \"yellow.bold,cyan.bold\" \"pnpm:watch:api\" \"pnpm:dev:api:start\"",
-    "dev:api:start": "fastify start --ignore-watch=.ts$ -w -l info -P api/dist/app.js",
+    "api:build": "tsc --project api/tsconfig.json",
+    "api:watch": "tsc -w --project api/tsconfig.json",
+    "api:dev": "pnpm run api:build && concurrently -k -p \"[{name}]\" -n \"TypeScript,App\" -c \"yellow.bold,cyan.bold\" \"pnpm:api:watch\" \"pnpm:api:dev:start\"",
+    "api:dev:start": "fastify start --ignore-watch=.ts$ -w -l info -P api/dist/app.js",
+    "app:dev": "vite",
+    "app:build": "tsc && vite build",
+    "dev": "concurrently -k -p \"[{name}]\" -n \"Server,App\" -c \"white.bold,gray.bold\" \"pnpm:api:dev\" \"pnpm:app:dev\"",
     "preview": "vite preview",
     "lint": "standard src/**/**.(ts|tsx)",
     "test": "fastify --help"
