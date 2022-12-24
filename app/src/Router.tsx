@@ -21,11 +21,6 @@ interface User {
   avatar: string
 }
 
-interface UserState {
-  user?: User
-  addUser: (user: User) => void
-}
-
 interface Figure {
   value: string
   repeat: number
@@ -37,13 +32,6 @@ interface Section {
 
 interface Album { [key: string]: Section }
 
-interface AlbumState {
-  album?: Album
-  id?: string
-  setIdAlbum: (id: string) => void
-  setAlbum: (album: Album) => void
-  increaseSticker: (code: string, number: string) => void
-}
 function ProtectRoute (): JSX.Element {
   const { user } = useUserStore((state) => state)
 
@@ -67,21 +55,19 @@ function Router (): JSX.Element {
   const navigate = useNavigate()
   const { setAlbum, setIdAlbum } = useAlbumStore((state) => state)
 
-  async function userHaveAlbum (user: User) {
+  async function userHaveAlbum (user: User): Promise<void> {
     try {
-      const { error, data } = await supabase.from('users').select('email, albums-users (album_id)').in('email', [user?.email])
-      if (error != null) {
-        throw Error('select album' + error.details)
+      const res = await fetch(`/api/users?userEmail=${user.email}`, { method: 'GET' })
+      const { data, error } = await res.json()
+      if (error !== null) {
+        throw Error(`select album ${error.details}`)
       }
       if (data.length > 0) {
         console.log('data from album id', data[0]['albums-users'].length)
         if (data[0]['albums-users'].length) {
-          console.log('here 1')
-          // @ts-expect-error
           const albumId = data[0]['albums-users'][0].album_id
           await getUserAlbumById(albumId)
         } else {
-          console.log('here 2')
           // TODO this doesnt have any album yet
           navigate('/protected/select-album')
         }
@@ -93,8 +79,9 @@ function Router (): JSX.Element {
 
   async function getUserAlbumById (albumId: string): Promise<void> {
     try {
-      const { error, data } = await supabase.from('albums').select('id, stickers').in('id', [albumId])
-      console.log({ error, data })
+      const res = await fetch(`/api/album?albumId=${albumId}`, { method: 'GET' })
+      const { data, error } = await res.json()
+      // const { error, data } = await supabase.from('albums').select('id, stickers').in('id', [albumId])
       if (error != null) {
         throw Error('create empty album - ' + error.details)
       }
@@ -110,11 +97,7 @@ function Router (): JSX.Element {
 
   async function getUserSession (): Promise<void> {
     try {
-      console.log('refreshSession')
-      const test = await fetch('/api')
-      console.log(test)
       const { error } = await supabase.auth.refreshSession()
-      console.log('refreshSession 2')
       if (error != null) {
         throw new Error('Error refreshSession')
       }
@@ -136,7 +119,12 @@ function Router (): JSX.Element {
               email: session.user.user_metadata.email,
               avatar: session.user.user_metadata.avatar_url
             }
-            const { data } = await supabase.from('users').insert(user).select()
+            // const { data } = await supabase.from('users').insert(user).select()
+            const res = await fetch('/api/users', {
+              method: 'POST',
+              body: { ...user }
+            })
+            const data = await res.json()
             if (data != null) {
               console.log('new user do something TODO')
             }
