@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import 'bulma/css/bulma.min.css'
-import Figure from './Figure'
 
 import Login from './Pages/Login/Login'
 import { Navigate, Outlet, Route, Routes, useNavigate } from 'react-router-dom'
@@ -20,17 +19,6 @@ interface User {
   email: string
   avatar: string
 }
-
-interface Figure {
-  value: string
-  repeat: number
-}
-
-interface Section {
-  figures: Figure[]
-}
-
-interface Album { [key: string]: Section }
 
 function ProtectRoute (): JSX.Element {
   const { user } = useUserStore((state) => state)
@@ -81,7 +69,6 @@ function Router (): JSX.Element {
     try {
       const res = await fetch(`/api/album?albumId=${albumId}`, { method: 'GET' })
       const { data, error } = await res.json()
-      // const { error, data } = await supabase.from('albums').select('id, stickers').in('id', [albumId])
       if (error != null) {
         throw Error('create empty album - ' + error.details)
       }
@@ -119,7 +106,6 @@ function Router (): JSX.Element {
               email: session.user.user_metadata.email,
               avatar: session.user.user_metadata.avatar_url
             }
-            // const { data } = await supabase.from('users').insert(user).select()
             const res = await fetch('/api/users', {
               method: 'POST',
               body: { ...user }
