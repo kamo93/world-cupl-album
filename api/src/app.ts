@@ -1,18 +1,18 @@
-import { join } from 'path';
-import AutoLoad, {AutoloadPluginOptions} from '@fastify/autoload';
-import { FastifyPluginAsync } from 'fastify';
-import { resolve, dirname } from 'path'
-import { createClient } from '@supabase/supabase-js';
-import fastifyEnv from '@fastify/env';
-import { fileURLToPath } from 'url';
+import { join, resolve, dirname } from 'path'
+import AutoLoad, { AutoloadPluginOptions } from '@fastify/autoload'
+import { FastifyPluginAsync } from 'fastify'
+import { createClient } from '@supabase/supabase-js'
+import fastifyEnv from '@fastify/env'
+import { fileURLToPath } from 'url'
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 const __filename = fileURLToPath(import.meta.url)
+// eslint-disable-next-line @typescript-eslint/naming-convention
 const __dirname = dirname(__filename)
 
 export type AppOptions = {
   // Place your custom options for app below here.
-} & Partial<AutoloadPluginOptions>;
-
+} & Partial<AutoloadPluginOptions>
 
 // Pass --options via CLI arguments in command to enable these options.
 const options: AppOptions = {
@@ -20,7 +20,7 @@ const options: AppOptions = {
 
 const envSchema = {
   type: 'object',
-  required: [ 'SUPABASE_URL', 'SUPABASE_ANON_KEY' ],
+  required: ['SUPABASE_URL', 'SUPABASE_ANON_KEY'],
   properties: {
     SUPABASE_URL: {
       type: 'string',
@@ -34,11 +34,11 @@ const envSchema = {
 }
 
 const app: FastifyPluginAsync<AppOptions> = async (
-    fastify,
-    opts
+  fastify,
+  opts
 ): Promise<void> => {
   // Place here your custom code!
-  fastify.register(fastifyEnv, { 
+  void fastify.register(fastifyEnv, {
     dotenv: {
       path: `${resolve(__dirname, '../../.env.local')}` // env files are for the whole project
     },
@@ -56,7 +56,7 @@ const app: FastifyPluginAsync<AppOptions> = async (
   // })
 
   fastify.decorate('supabase', () => {
-    const supabaseUrl = fastify.config['SUPABASE_URL']
+    const supabaseUrl = fastify.config.SUPABASE_URL
     const supabaseAnonKey = fastify.config.SUPABASE_ANON_KEY
 
     const supabase = createClient(supabaseUrl, supabaseAnonKey, {
@@ -65,17 +65,15 @@ const app: FastifyPluginAsync<AppOptions> = async (
       }
     })
 
-    return supabase;
+    return supabase
   })
   // This loads all plugins defined in routes
   // define your routes in one of these
   void fastify.register(AutoLoad, {
     dir: join(__dirname, 'routes'),
-    options: {...opts, prefix: '/api'}
+    options: { ...opts, prefix: '/api' }
   })
+}
 
-};
-
-export default app;
+export default app
 export { app, options }
-

@@ -4,7 +4,7 @@ import { SupabaseClient } from '@supabase/supabase-js'
 declare global {
   namespace NODEJS {
     interface ProccessNev {
-      PORT?: string;
+      PORT?: string
     }
   }
 }
@@ -12,10 +12,10 @@ declare global {
 declare module 'fastify' {
   interface FastifyInstance extends FI {
     config: {
-      SUPABASE_URL: string;
-      SUPABASE_ANON_KEY: string;
-    };
+      SUPABASE_URL: string
+      SUPABASE_ANON_KEY: string
+    }
     supabase: () => SupabaseClient<any, 'public', any >
-;
+
   }
 }

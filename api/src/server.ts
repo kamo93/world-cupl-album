@@ -1,7 +1,6 @@
 import Fastify from 'fastify'
 import appPlugin from './app.js'
 
-
 const App = Fastify({
   logger: {
     transport: {
@@ -19,7 +18,7 @@ const server = App.register(appPlugin)
 // Start listening.
 const port = process.env.PORT ? Number(process.env.PORT) : 3000
 server.listen({ port }, (err) => {
-  if (err) {
+  if (err != null) {
     server.log.error(err)
     process.exit(1)
   }
