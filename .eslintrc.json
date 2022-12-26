@@ -1,8 +1,9 @@
 {
   "$schema": "https://json.schemastore.org/eslintrc.json",
   "extends": ["./node_modules/ts-standard/eslintrc.json"],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": ["tsconfig.json"]
+    "project": ["tsconfig.json", "api/tsconfig.json"]
   },
   "plugins": ["react-refresh"],
   "rules": {

@@ -10,7 +10,8 @@ pnpm dev
 ```
 
 ## New features
-- total not hard coded but calculated
-- fix reload always go to first page
-- refactor stats page, break it on multiple components
+- add api based on fastify framework
+- move all supabase query to the new api
 
+## fix
+- fix reload always go to first page
