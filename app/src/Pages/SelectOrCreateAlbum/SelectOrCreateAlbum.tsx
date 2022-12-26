@@ -6,7 +6,7 @@ import { useSupabaseContext } from '../../Contexts/SupabaseContext'
 import { useAlbumStore } from '../../Stores/Album'
 import { useUserStore } from '../../Stores/User'
 
-function SelectOrCreateAlbum () {
+function SelectOrCreateAlbum (): JSX.Element {
   const { setAlbum, setIdAlbum } = useAlbumStore((state) => state)
   const { supabase } = useSupabaseContext()
   const [albums, setAlbums] = useState<Array<{ id: string, name: string }>>()
@@ -14,7 +14,7 @@ function SelectOrCreateAlbum () {
   const user = useUserStore((state) => state.user)
   const navigate = useNavigate()
 
-  async function getAllAlbums () {
+  async function getAllAlbums (): Promise<void> {
     try {
       const { error, data } = await supabase.from('albums').select('id, name')
       if (error != null) {
@@ -29,7 +29,7 @@ function SelectOrCreateAlbum () {
     }
   }
 
-  async function createAlbum (name: string) {
+  async function createAlbum (name: string): Promise<void> {
     try {
       const { data, error } = await supabase.from('albums').insert({ stickers: ALBUM, name }).select()
       if (error != null) {
@@ -69,19 +69,19 @@ function SelectOrCreateAlbum () {
       {
         (albums == null) || (albums.length === 0)
           ? <Block>
-            <Heading size={2}>Crear album</Heading>
-            <form onSubmit={handlerOnSubmit}>
-              <Form.Field>
+              <Heading size={2}>Crear album</Heading>
+              <form onSubmit={handlerOnSubmit}>
+                <Form.Field>
+                  <Form.Control>
+                    <Form.Label>Nombre del album</Form.Label>
+                    <Form.Input type='text' name='albumName' />
+                  </Form.Control>
+                </Form.Field>
                 <Form.Control>
-                  <Form.Label>Nombre del album</Form.Label>
-                  <Form.Input type='text' name='albumName' />
+                  <Button submit>Confirmar</Button>
                 </Form.Control>
-              </Form.Field>
-              <Form.Control>
-                <Button submit>Confirmar</Button>
-              </Form.Control>
-            </form>
-          </Block>
+              </form>
+            </Block>
           : null
       }
       {

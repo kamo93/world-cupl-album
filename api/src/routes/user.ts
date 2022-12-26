@@ -1,7 +1,5 @@
-// import { FastifyPluginAsync } from 'fastify'
 import { FromSchema } from 'json-schema-to-ts'
 import { FastifyPluginAsyncJsonSchemaToTs } from '@fastify/type-provider-json-schema-to-ts'
-// import fetch from 'node-fetch'
 
 const users: FastifyPluginAsyncJsonSchemaToTs = async (fastify, opts): Promise<void> => {
   const bodyUserSchema = {

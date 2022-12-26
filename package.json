@@ -30,7 +30,6 @@
     "bulma": "^0.9.4",
     "fastify": "^4.10.2",
     "fastify-cli": "^5.7.0",
-    "node-fetch": "^3.3.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-bulma-components": "^4.1.0",
