@@ -10,8 +10,7 @@ pnpm dev
 ```
 
 ## New features
-- add api based on fastify framework
-- move all supabase query to the new api
+- add fetch wrapper for the new endpoints
 
 ## fix
 - fix reload always go to first page
