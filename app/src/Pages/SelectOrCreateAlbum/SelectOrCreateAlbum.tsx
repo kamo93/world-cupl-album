@@ -3,8 +3,16 @@ import { Form, Block, Heading, Button } from 'react-bulma-components'
 import { useNavigate } from 'react-router-dom'
 import { ALBUM } from '../../Constants'
 import { useSupabaseContext } from '../../Contexts/SupabaseContext'
+import customFetch from '../../customFetch'
 import { useAlbumStore } from '../../Stores/Album'
 import { useUserStore } from '../../Stores/User'
+
+interface AlbumsApiResponse {
+  data: Array<{
+    id: string
+    name: string
+  }>
+}
 
 function SelectOrCreateAlbum (): JSX.Element {
   const { setAlbum, setIdAlbum } = useAlbumStore((state) => state)
@@ -16,7 +24,7 @@ function SelectOrCreateAlbum (): JSX.Element {
 
   async function getAllAlbums (): Promise<void> {
     try {
-      const { error, data } = await supabase.from('albums').select('id, name')
+      const { data } = await customFetch.get<AlbumsApiResponse>({ url: `/api/albums` })
       if (error != null) {
         throw Error('getAllalbums error - ' + error.details)
       }

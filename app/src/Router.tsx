@@ -6,7 +6,7 @@ import { Navigate, Outlet, Route, Routes, useNavigate } from 'react-router-dom'
 import { useSupabaseContext } from './Contexts/SupabaseContext'
 import SelectOrCreateAlbum from './Pages/SelectOrCreateAlbum/SelectOrCreateAlbum'
 import { useUserStore } from './Stores/User'
-import { useAlbumStore } from './Stores/Album'
+import { Album, useAlbumStore } from './Stores/Album'
 
 import AlbumPage from './Pages/Album/Album'
 import { AuthChangeEvent } from '@supabase/supabase-js'
@@ -14,6 +14,7 @@ import Cover from './Pages/Cover/Cover'
 import WithMenuBar from './Layouts/WithMenuBar'
 import Stats from './Pages/Stats/Stats'
 import Settings from './Pages/Settings/Settings'
+import customFetch, { CustomFetchError } from './customFetch'
 
 interface User {
   email: string
@@ -37,6 +38,26 @@ function ProtectRoute (): JSX.Element {
 
 const validAuthEvents: AuthChangeEvent[] = ['SIGNED_IN', 'TOKEN_REFRESHED']
 
+interface UserAlbumIds {
+  email: string
+  'albums-users': Array<{ album_id: string }>
+}
+
+interface AlbumApiResponse {
+  data: {
+    id: string
+    stickers: Album
+  }
+}
+
+interface InsertUserApiResponse {
+  data: {
+    avatar: string
+    email: string
+  }
+
+}
+
 function Router (): JSX.Element {
   const { supabase } = useSupabaseContext()
   const { addUser } = useUserStore((state) => state)
@@ -45,39 +66,35 @@ function Router (): JSX.Element {
 
   async function userHaveAlbum (user: User): Promise<void> {
     try {
-      const res = await fetch(`/api/users?userEmail=${user.email}`, { method: 'GET' })
-      const { data, error } = await res.json()
-      if (error !== null) {
-        throw Error(`select album ${error.details}`)
-      }
-      if (data.length > 0) {
-        console.log('data from album id', data[0]['albums-users'].length)
-        if (data[0]['albums-users'].length) {
-          const albumId = data[0]['albums-users'][0].album_id
-          await getUserAlbumById(albumId)
-        } else {
-          // TODO this doesnt have any album yet
-          navigate('/protected/select-album')
-        }
+      const { data } = await customFetch.get<{ data: UserAlbumIds }>({ url: `/api/user?userEmail=${user.email}` })
+      console.log('data', data)
+      const albumIds = data['albums-users']
+      if (albumIds.length !== 0) {
+        await getUserAlbumById(albumIds[0].album_id)
+      } else {
+        navigate('/protected/select-album')
       }
     } catch (e) {
+      if ((e as CustomFetchError).statusCode === 404) {
+        navigate('/protected/select-album')
+      }
       console.warn(e)
     }
   }
 
   async function getUserAlbumById (albumId: string): Promise<void> {
     try {
-      const res = await fetch(`/api/album?albumId=${albumId}`, { method: 'GET' })
-      const { data, error } = await res.json()
-      if (error != null) {
-        throw Error('create empty album - ' + error.details)
-      }
-      if (data.length > 0) {
-        setAlbum(data[0].stickers)
-        setIdAlbum(data[0].id)
+      const { data } = await customFetch.get<AlbumApiResponse>({ url: `/api/albums/${albumId}` })
+      if (data !== null) {
+        setAlbum(data.stickers)
+        setIdAlbum(data.id)
         navigate('/protected/user/album')
       }
     } catch (e) {
+      const errApi = e as CustomFetchError
+      if (errApi.statusCode === 404) {
+        console.warn(errApi.message)
+      }
       console.warn(e)
     }
   }
@@ -100,22 +117,19 @@ function Router (): JSX.Element {
   useEffect(() => {
     const { data: authListener } = supabase.auth.onAuthStateChange(
       async (event, session) => {
+        console.log({ event, session })
         if (validAuthEvents.includes(event)) {
-          if (session != null) {
+          if (session !== null) {
             const user = {
               email: session.user.user_metadata.email,
               avatar: session.user.user_metadata.avatar_url
             }
-            const res = await fetch('/api/users', {
-              method: 'POST',
-              body: { ...user }
-            })
-            const data = await res.json()
+            const { data } = await customFetch.post<InsertUserApiResponse>({ url: '/api/user', body: { ...user } })
             if (data != null) {
               console.log('new user do something TODO')
             }
-            addUser(user)
-            await userHaveAlbum(user)
+            addUser(data)
+            await userHaveAlbum(data)
           }
         }
       }

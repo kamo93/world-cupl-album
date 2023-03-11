@@ -15,29 +15,39 @@ const album: FastifyPluginAsyncJsonSchemaToTs = async (fastify, opts): Promise<v
   } as const
   const params: FastifySchema = { params: queryParamsAlbumSchema }
   fastify.get<{ Params: FromSchema<typeof queryParamsAlbumSchema> }>(
-    '/album/:albumId',
+    '/albums/:albumId',
     { schema: params },
-    async (req, rep) => {
+    async (req, res) => {
       const { albumId } = req.params
       const { error, data } = await fastify.supabase()
         .from('albums')
         .select('id, stickers')
         .in('id', [albumId])
       if (data?.length === 0) {
-        return await rep.code(400)
+        return await res.code(404).send({ message: `The album ${albumId} doesn't found.` })
       }
-      return { data, error }
+      if (error !== null) {
+        return await res.code(500).send({ message: error.hint })
+      }
+      fastify.log.info(data)
+      return { data: data[0] }
     }
   )
 
   fastify.get(
-    '/album',
+    '/albums',
     async (req, rep) => {
-      const { error, data } = await fastify.supabase().from('albums').select('id, name')
+      const { error, data } = await fastify
+        .supabase()
+        .from('albums')
+        .select('id, name')
       if (data?.length === 0) {
         return await rep.code(400)
       }
-      return { data, error }
+      if (error !== null) {
+        return await rep.code(500).send({ message: error.hint })
+      }
+      return { data }
     }
   )
 
