@@ -59,7 +59,7 @@ const ContainerStyled = styled(Block)`
   margin-bottom: 0px;
 `
 
-const AlbumPage = () => {
+const AlbumPage = (): JSX.Element => {
   const [isSubtractMode, setIsSubtractMode] = useState(false)
   const [isRepeatedMode, setIsRepeatedMode] = useState(false)
   const [filterStickers, setFilterStickers] = useState<Album | null>()
@@ -124,7 +124,7 @@ const AlbumPage = () => {
         <FiltersContainerStyled mb={0}>
           <AutoCompleteCodes
             onItemSelected={filterAlbum}
-            />
+          />
           <Button
             color={isSubtractMode ? 'danger' : ''}
             size='small'
@@ -187,7 +187,7 @@ const AlbumPage = () => {
                           albumNumber={value}
                           timesRepeat={repeat}
                           onClick={() => { increaseOneOnRepeatSticker(code, value, isSubtractMode) }}
-                          />
+                        />
                       )
                     })}
                   </SectionStyled>
@@ -198,7 +198,6 @@ const AlbumPage = () => {
         </AlbumContatinerStyled>
       </ContainerStyled>
     </WithMenuBar>
-    
 
   )
 }
