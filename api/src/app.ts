@@ -1,9 +1,9 @@
 import { join, resolve, dirname } from 'path'
-import AutoLoad, { AutoloadPluginOptions } from '@fastify/autoload'
 import { FastifyPluginAsync } from 'fastify'
 import { createClient } from '@supabase/supabase-js'
 import fastifyEnv from '@fastify/env'
 import { fileURLToPath } from 'url'
+import AutoLoad, { AutoloadPluginOptions } from '@fastify/autoload'
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const __filename = fileURLToPath(import.meta.url)

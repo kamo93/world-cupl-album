@@ -16,12 +16,24 @@ const users: FastifyPluginAsyncJsonSchemaToTs = async (fastify, opts): Promise<v
   } as const
   const userSchema = { body: bodyUserSchema }
   fastify.post<{ Body: FromSchema<typeof bodyUserSchema> }>(
-    '/users',
+    '/user',
     { schema: userSchema },
     async function (request, reply) {
-      const { data, error } = await fastify.supabase().from('users').insert(request.body).select()
-      console.log('error', error)
-      return { ...data }
+      const { data, error } = await fastify
+        .supabase()
+        .from('users')
+        .upsert(request.body)
+        .select('avatar email')
+      if (data?.length === 0) {
+        return await reply.code(404).send({ message: `No user could add with ${request.body.email}.` })
+      }
+      if (error !== null) {
+        fastify.log.info(error)
+        return await reply.code(500).send({ message: error.hint })
+      }
+      console.log('data /user', data)
+      console.dir(data[0], { depth: 2 })
+      return { data: data[0] }
     })
 
   const queryParamsUserSchema = {
@@ -36,18 +48,21 @@ const users: FastifyPluginAsyncJsonSchemaToTs = async (fastify, opts): Promise<v
   } as const
   const queryParams = { querystring: queryParamsUserSchema }
   fastify.get<{ Querystring: FromSchema<typeof queryParamsUserSchema> }>(
-    '/users',
+    '/user',
     { schema: queryParams },
-    async (req, rep) => {
+    async (req, res) => {
       const { userEmail } = req.query
       const { error, data } = await fastify.supabase()
         .from('users')
         .select('email, albums-users (album_id)')
         .in('email', [userEmail])
       if (data?.length === 0) {
-        return await rep.code(400)
+        return await res.code(404).send({ message: `Not users with the next email ${userEmail}` })
       }
-      return { data, error }
+      if (error !== null) {
+        return await res.code(500).send({ message: error.hint })
+      }
+      return { data: data[0] }
     }
   )
 }
