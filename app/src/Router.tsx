@@ -15,6 +15,8 @@ import WithMenuBar from './Layouts/WithMenuBar'
 import Stats from './Pages/Stats/Stats'
 import Settings from './Pages/Settings/Settings'
 import customFetch, { CustomFetchError } from './customFetch'
+import useSWR, { useSWRConfig } from 'swr'
+import useSWRMutation from 'swr/mutation'
 
 interface User {
   email: string
@@ -39,15 +41,13 @@ function ProtectRoute (): JSX.Element {
 const validAuthEvents: AuthChangeEvent[] = ['SIGNED_IN', 'TOKEN_REFRESHED']
 
 interface UserAlbumIds {
-  email: string
-  'albums-users': Array<{ album_id: string }>
+  id: string
+  stickers: Album
 }
 
 interface AlbumApiResponse {
-  data: {
-    id: string
-    stickers: Album
-  }
+  id: string
+  stickers: Album
 }
 
 interface InsertUserApiResponse {
@@ -58,19 +58,35 @@ interface InsertUserApiResponse {
 
 }
 
+async function fetcher (url: string, { arg: userEmail }: { arg: string }) {
+  console.log('url', url)
+  return await customFetch.get<{ data: AlbumApiResponse | null }>({ url: `${url}?selected=true&userEmail=${userEmail}` })
+}
+
 function Router (): JSX.Element {
   const { supabase } = useSupabaseContext()
+  const { trigger, data } = useSWRMutation('/api/album', fetcher, { populateCache: true })
+  console.log('data',data)
+  const {cache} = useSWRConfig()
+  console.log('data cache router',cache.get('/api/album'))
   const { addUser } = useUserStore((state) => state)
+  // const { data, isLoading, error } = useSWR(shouldGetAlbum ? `/api/album?selected=true&userEmail=${(user as User).email}` : null, fetcher)
   const navigate = useNavigate()
   const { setAlbum, setIdAlbum } = useAlbumStore((state) => state)
+  console.count('render')
 
   async function userHaveAlbum (user: User): Promise<void> {
+    // if (user) {
     try {
-      const { data } = await customFetch.get<{ data: UserAlbumIds }>({ url: `/api/user?userEmail=${user.email}` })
-      console.log('data', data)
-      const albumIds = data['albums-users']
-      if (albumIds.length !== 0) {
-        await getUserAlbumById(albumIds[0].album_id)
+      // const { data } = await customFetch.get<{ data: UserAlbumIds }>({ url: `/api/user?userEmail=${user.email}` })
+      console.log('useswr', user)
+      const { data } = await trigger(user.email)
+      console.log('res', data)
+      // const { data } = await customFetch.get<{ data: AlbumApiResponse | null }>({ url: `/api/album?userEmail=${user.email}&selected=true` })
+      if (data !== null) {
+        setAlbum(data.stickers)
+        setIdAlbum(data.id)
+        navigate('/protected/user/album')
       } else {
         navigate('/protected/select-album')
       }
@@ -80,23 +96,7 @@ function Router (): JSX.Element {
       }
       console.warn(e)
     }
-  }
-
-  async function getUserAlbumById (albumId: string): Promise<void> {
-    try {
-      const { data } = await customFetch.get<AlbumApiResponse>({ url: `/api/albums/${albumId}` })
-      if (data !== null) {
-        setAlbum(data.stickers)
-        setIdAlbum(data.id)
-        navigate('/protected/user/album')
-      }
-    } catch (e) {
-      const errApi = e as CustomFetchError
-      if (errApi.statusCode === 404) {
-        console.warn(errApi.message)
-      }
-      console.warn(e)
-    }
+    // }
   }
 
   async function getUserSession (): Promise<void> {
@@ -116,6 +116,7 @@ function Router (): JSX.Element {
 
   useEffect(() => {
     const { data: authListener } = supabase.auth.onAuthStateChange(
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
       async (event, session) => {
         console.log({ event, session })
         if (validAuthEvents.includes(event)) {
@@ -125,7 +126,7 @@ function Router (): JSX.Element {
               avatar: session.user.user_metadata.avatar_url
             }
             const { data } = await customFetch.post<InsertUserApiResponse>({ url: '/api/user', body: { ...user } })
-            if (data != null) {
+            if (data !== null) {
               console.log('new user do something TODO')
             }
             addUser(data)

@@ -1,3 +1,4 @@
+// DEPRECATED
 export class CustomFetchError extends Error {
   statusCode: number
   constructor ({ statusCode, message }: { statusCode: number, message: string }) {
@@ -38,6 +39,25 @@ const customFetch = {
         }
       })
     const jsonResponse = await res.json()
+    if (res.ok) {
+      return jsonResponse as DataResponse
+    }
+    throw new CustomFetchError({ statusCode: res.status, message: jsonResponse.message ?? 'Http error post' })
+  },
+  async put<DataResponse> ({ url, body }: { url: string, body: BodyInit }) {
+    console.log({ body })
+    const res = await fetch(
+      url,
+      {
+        method: 'PUT',
+        body: JSON.stringify(body),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+    console.log('res', res)
+    const jsonResponse = await res.json()
+    console.log('res', jsonResponse)
     if (res.ok) {
       return jsonResponse as DataResponse
     }

@@ -14,6 +14,7 @@ export interface Album { [key: string]: Section }
 export interface AlbumState {
   album?: Album
   id?: string
+  name?: string
   setIdAlbum: (id: string) => void
   setAlbum: (album: Album) => void
   increaseSticker: (code: string, number: string) => void
@@ -53,7 +54,9 @@ function getTotalStickers (album: Album): number {
 export const useAlbumStore = create<AlbumState>()((set, get) => ({
   album: undefined,
   idAlbum: undefined,
+  name: '',
   setIdAlbum: (id: string) => set(() => ({ id })),
+  setAlbumName: (name: string) => set(() => ({ name })),
   setAlbum: (album: Album) => set(() => ({ album })),
   increaseSticker: (code: string, number: string) => set((state) => {
     if (state.album != null) {
