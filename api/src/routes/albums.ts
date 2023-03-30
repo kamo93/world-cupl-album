@@ -2,6 +2,16 @@ import { FastifyPluginAsyncJsonSchemaToTs } from '@fastify/type-provider-json-sc
 import { RealtimeChannel, RealtimeChannelSendResponse } from '@supabase/supabase-js'
 import { FastifySchema } from 'fastify'
 import { FromSchema } from 'json-schema-to-ts'
+export interface Figure {
+  value: string
+  repeat: number
+}
+
+export interface Section {
+  figures: Figure[]
+}
+
+export interface Album { [key: string]: Section }
 
 const ALBUM_SYNC_ACTIONS = {
   add: 'add_sticker',
@@ -291,13 +301,14 @@ const album: FastifyPluginAsyncJsonSchemaToTs = async (fastify): Promise<void> =
           .on('broadcast', { event: 'update_album' }, async ({ payload }) => {
             fastify.log.info({ 'msg-channel': payload }, `channel ${payload.action as ALBUM_SYNC_ACTIONS_TYPES}`)
             const { number, code, origin, action } = payload
-            const stickersPerCode = stickers[code].figures.map((sticker) => {
+            // @typescript
+            const stickersPerCode = stickers[code].figures.map((sticker: Figure) => {
               if (sticker.value === number) {
                 let newValue: number
                 if (ALBUM_SYNC_ACTIONS.remove === action) {
                   newValue = sticker.repeat > 0 ? sticker.repeat - 1 : sticker.repeat // just remove when its positive you can't own stickers
                 } else {
-                  newValue = sticker.repeat as number + 1
+                  newValue = sticker.repeat + 1
                 }
                 return { ...sticker, repeat: newValue }
               }
@@ -339,7 +350,7 @@ const album: FastifyPluginAsyncJsonSchemaToTs = async (fastify): Promise<void> =
         connection.socket.send(JSON.stringify({ data: { name: data[0].name, stickers }, action: ALBUM_SYNC_ACTIONS.set }))
       }
 
-      if (data.length === 0) {
+      if (data?.length === 0) {
         fastify.log.info(`User ${userEmail} doesn't have an album selected`)
         connection.socket.close()
       }
