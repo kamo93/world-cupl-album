@@ -2,6 +2,7 @@ import { join, resolve, dirname } from 'path'
 import { FastifyPluginAsync } from 'fastify'
 import { createClient } from '@supabase/supabase-js'
 import fastifyEnv from '@fastify/env'
+import fastifyWS from '@fastify/websocket'
 import { fileURLToPath } from 'url'
 import AutoLoad, { AutoloadPluginOptions } from '@fastify/autoload'
 
@@ -44,6 +45,8 @@ const app: FastifyPluginAsync<AppOptions> = async (
     },
     schema: envSchema
   })
+
+  void fastify.register(fastifyWS)
 
   // Do not touch the following lines
 
