@@ -12,7 +12,11 @@ const MenuIconStyled = styled(Icon)`
   display: flex;
 `
 
-const ButtonStyled = styled(Block)<{ active: boolean }>`
+interface ButtonStyledProps {
+  readonly $isActive: boolean
+}
+
+const ButtonStyled = styled(Block)<ButtonStyledProps>`
   display: flex;
   flex-direction: column;
   color: #807f7f;
@@ -23,8 +27,8 @@ const ButtonStyled = styled(Block)<{ active: boolean }>`
   span.has-text-dark {
     color: #807f7f !important;
   }
-  ${({ active }) => {
-    if (active) {
+  ${(props) => {
+    if (props.$isActive) {
       return `
         color: #3e8ed0 !important;
         span.has-text-dark {
@@ -32,6 +36,7 @@ const ButtonStyled = styled(Block)<{ active: boolean }>`
         }
       `
     }
+    return ''
   }}
   &:focus, &:active {
     outline: none !important;
@@ -51,17 +56,20 @@ export interface ItemProps {
 function Item ({ label, icon, routePath }: ItemProps): JSX.Element {
   return (
     <MenuItemContainerStyled to={`/protected/user/${routePath}`}>
-      {({ isActive }) => (
-        <ButtonStyled active={isActive}>
-          <MenuIconStyled
-            color='dark'
-            size='medium'
-          >
-            <i className={`fa-solid fa-${icon} fa-lg`} />
-          </MenuIconStyled>
-          <span>{label}</span>
-        </ButtonStyled>
-      )}
+      {({ isActive }) => {
+        console.log('hi', typeof isActive)
+        return (
+          <ButtonStyled $isActive={isActive}>
+            <MenuIconStyled
+              color='dark'
+              size='medium'
+            >
+              <i className={`fa-solid fa-${icon} fa-lg`} />
+            </MenuIconStyled>
+            <span>{label}</span>
+          </ButtonStyled>
+        )
+      }}
     </MenuItemContainerStyled>
   )
 }

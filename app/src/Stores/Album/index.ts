@@ -3,6 +3,7 @@ import create from 'zustand'
 export interface Figure {
   value: string
   repeat: number
+  isImportant: boolean
 }
 
 export interface Section {

@@ -1,20 +1,35 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig.json",
   "compilerOptions": {
-    "target": "ESNext",
+    "target": "ES2020",
     "useDefineForClassFields": true,
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "allowJs": false,
-    "skipLibCheck": true,
-    "esModuleInterop": false,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
+    "lib": [ "ES2020", "DOM", "DOM.Iterable", "WebWorker"],
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "skipLibCheck": true,
+    "allowImportingTsExtensions": true,
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowJs": false,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "types": [
+      "vite/client",
+      "vite-plugin-pwa/react",
+      "vite-plugin-pwa/info"
+    ],
+    "plugins": [
+      { "name": "@styled/typescript-styled-plugin",
+        "tags": ["styled", "css", "sty"]
+      }
+    ]
   },
   "include": ["app/src", "vite.config.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]

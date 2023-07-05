@@ -16,7 +16,7 @@ const App = Fastify({
 const server = App.register(appPlugin)
 
 // Start listening.
-const port = process.env.PORT ? Number(process.env.PORT) : 3000
+const port = typeof process.env.PORT !== 'undefined' ? Number(process.env.PORT) : 3000
 server.listen({ port }, (err) => {
   if (err != null) {
     server.log.error(err)

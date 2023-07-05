@@ -2,6 +2,7 @@ import { FastifyPluginAsyncJsonSchemaToTs } from '@fastify/type-provider-json-sc
 import { RealtimeChannel, RealtimeChannelSendResponse } from '@supabase/supabase-js'
 import { FastifySchema } from 'fastify'
 import { FromSchema } from 'json-schema-to-ts'
+import { ALBUM } from '../../../share/constants/index.js'
 export interface Figure {
   value: string
   repeat: number
@@ -38,7 +39,7 @@ const album: FastifyPluginAsyncJsonSchemaToTs = async (fastify): Promise<void> =
     { schema: params },
     async (req, res) => {
       const { albumId } = req.params
-      const { error, data } = await fastify.supabase()
+      const { error, data } = await fastify.supabase
         .from('albums')
         .select('id, stickers')
         .in('id', [albumId])
@@ -69,7 +70,7 @@ const album: FastifyPluginAsyncJsonSchemaToTs = async (fastify): Promise<void> =
       const { albumId } = req.params
       const { userEmail } = req.body
       const { error: cleanSelectedError } = await fastify
-        .supabase()
+        .supabase
         .from('album_members')
         .update({ selected: false })
         .eq('selected', true)
@@ -82,7 +83,7 @@ const album: FastifyPluginAsyncJsonSchemaToTs = async (fastify): Promise<void> =
       }
       // TODO this would be nice to a transaction
       // like batch commit
-      const { error, data } = await fastify.supabase()
+      const { error, data } = await fastify.supabase
         .from('album_members')
         .update({ selected: true })
         .eq('album_id', albumId)
@@ -117,7 +118,7 @@ const album: FastifyPluginAsyncJsonSchemaToTs = async (fastify): Promise<void> =
     async (req, res) => {
       const { userEmail } = req.params
       const { data, error } = await fastify
-        .supabase()
+        .supabase
         .from('albums')
         .select('id, name, album_members!inner(*)')
         .in('album_members.user_email', [userEmail])
@@ -140,7 +141,7 @@ const album: FastifyPluginAsyncJsonSchemaToTs = async (fastify): Promise<void> =
     '/albums',
     async (req, rep) => {
       const { data, error } = await fastify
-        .supabase()
+        .supabase
         .from('albums')
         .select('id, name')
       if (data?.length === 0) {
@@ -200,7 +201,7 @@ const album: FastifyPluginAsyncJsonSchemaToTs = async (fastify): Promise<void> =
     { schema: schemaAlbumQuery },
     async (req, res) => {
       const { userEmail, selected } = req.query
-      const { error, data } = await fastify.supabase()
+      const { error, data } = await fastify.supabase
         .from('albums')
         .select('id, stickers, album_members!inner(*)')
         .eq('album_members.selected', selected)
@@ -218,44 +219,45 @@ const album: FastifyPluginAsyncJsonSchemaToTs = async (fastify): Promise<void> =
 
   const bodyAlbumSchema = {
     type: 'object',
-    required: ['stickers', 'name'],
+    required: ['name', 'email', 'albumTypeId'],
     properties: {
-      stickers: {
-        type: 'object',
-        properties: {
-          figures: {
-            type: 'array',
-            items: {
-              type: 'object',
-              properties: {
-                value: {
-                  type: 'string'
-                },
-                repeat: {
-                  type: 'string'
-                }
-              }
-            }
-          }
-        }
-      },
       name: {
         type: 'string'
+      },
+      email: {
+        type: 'string'
+      },
+      albumTypeId: {
+        type: 'string'
       }
+
     }
   } as const
   fastify.post<{ Body: FromSchema<typeof bodyAlbumSchema> }>(
     '/album',
     { schema: { body: bodyAlbumSchema } },
     async (req, rep) => {
-      const { stickers, name } = req.body
-      const { data, error } = await fastify.supabase()
+      const { name, email, albumTypeId } = req.body
+      const { data } = await fastify.supabase
         .from('albums')
-        .insert({ stickers, name }).select()
-      if (data?.length === 0) {
+        .insert({ stickers: ALBUM, name, owner: email, album_type_id: albumTypeId }).select()
+      fastify.log.info('Album test')
+      fastify.log.info(ALBUM)
+      if (data?.length === 0 || data === null) {
         return await rep.code(400)
       }
-      return { data, error }
+      const { error: joinTbError } = await fastify.supabase
+        .from('album_members')
+        .insert({ user_email: email, album_id: data[0].id, selected: true })
+        .select()
+      if (joinTbError !== null) {
+        await fastify.supabase
+          .from('albums')
+          .delete({ count: 'exact' })
+          .eq('id', data[0].id)
+        return await rep.code(500)
+      }
+      return { data: data[0] }
     }
   )
 
@@ -279,7 +281,7 @@ const album: FastifyPluginAsyncJsonSchemaToTs = async (fastify): Promise<void> =
       const { userEmail } = request.query
       let stickers: any
       let channel: RealtimeChannel
-      const { data, error } = await fastify.supabase()
+      const { data, error } = await fastify.supabase
         .from('albums')
         .select('*, album_members!inner(*)')
         .eq('album_members.selected', true)
@@ -288,7 +290,7 @@ const album: FastifyPluginAsyncJsonSchemaToTs = async (fastify): Promise<void> =
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         stickers = data[0].stickers
         const albumId = data[0].id as string
-        channel = fastify.supabase().channel(
+        channel = fastify.supabase.channel(
           `channel:album:${albumId}`,
           { config: { broadcast: { self: true } } }
         )
@@ -321,7 +323,7 @@ const album: FastifyPluginAsyncJsonSchemaToTs = async (fastify): Promise<void> =
               }
             }
             connection.socket.send(JSON.stringify({ data: { name: data[0].name, stickers }, origin, action }))
-            await fastify.supabase()
+            await fastify.supabase
               .from('albums')
               .update({ stickers })
               .eq('id', albumId)
