@@ -21,8 +21,9 @@ const users: FastifyPluginAsyncJsonSchemaToTs = async (fastify, opts): Promise<v
     { schema: userSchema },
     async function (request, reply) {
       console.time('supabase user')
+      // const res = await fastify.mailer.sendEmail({ to: '93.kevinmancera@gmail.com', subject: 'test', text: 'hola' })
       const { data, error } = await fastify
-        .supabase()
+        .supabase
         .from('users')
         .upsert(request.body)
         .select('avatar, email')
@@ -57,7 +58,7 @@ const users: FastifyPluginAsyncJsonSchemaToTs = async (fastify, opts): Promise<v
     { schema: queryParams },
     async (req, res) => {
       const { userEmail } = req.query
-      const { error, data } = await fastify.supabase()
+      const { error, data } = await fastify.supabase
         .from('users')
         .select('email, albums(*)')
         .in('email', [userEmail])
@@ -90,7 +91,7 @@ const users: FastifyPluginAsyncJsonSchemaToTs = async (fastify, opts): Promise<v
     async (req, res) => {
       const { albumId } = req.params
       const { data, error } = await fastify
-        .supabase()
+        .supabase
         .from('users')
         .select('email, album_members!inner(album_id)')
         .in('album_members.album_id', [albumId])

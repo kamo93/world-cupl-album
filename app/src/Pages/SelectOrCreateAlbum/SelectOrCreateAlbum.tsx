@@ -1,11 +1,14 @@
-import { useEffect, useState } from 'react'
-import { Form, Block, Heading, Button } from 'react-bulma-components'
+import { Form, Block, Heading, Button, Section } from 'react-bulma-components'
 import { useNavigate } from 'react-router-dom'
-import { ALBUM } from '../../Constants'
+import { ALBUMS } from '../../../../share/constants'
 import { useSupabaseContext } from '../../Contexts/SupabaseContext'
 import customFetch from '../../customFetch'
 import { useAlbumStore } from '../../Stores/Album'
-import { useUserStore } from '../../Stores/User'
+import { User, useUserStore } from '../../Stores/User'
+import useSWR from 'swr'
+import useSWRMutation from 'swr/mutation'
+import PageLoader from '../../Components/PageLoader/PageLoader'
+import styled from 'styled-components'
 
 interface AlbumsApiResponse {
   data: Array<{
@@ -14,45 +17,66 @@ interface AlbumsApiResponse {
   }>
 }
 
+const StyledContainer = styled(Block)`
+  max-height: 100vh;
+  height: 100vh;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+`
+const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 40px;
+  align-items: stretch;
+  flex: 1;
+`
+
+const StyledFieldContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  
+`
+
+async function fetcher (url: string, {}) {
+  return await customFetch.get<AlbumsApiResponse>({ url })
+}
+
+async function fetcherPost (url: string, { arg }: { arg: { name: string, email: string, albumTypeId: string } }) {
+  return await customFetch.post({ url, body: { name: arg.name, email: arg.email, albumTypeId: arg.albumTypeId } })
+}
+
 function SelectOrCreateAlbum (): JSX.Element {
-  const { setAlbum, setIdAlbum } = useAlbumStore((state) => state)
-  const { supabase } = useSupabaseContext()
-  const [albums, setAlbums] = useState<Array<{ id: string, name: string }>>()
-  const [albumSelected, setAlbumSelected] = useState('')
+  const { setIdAlbum } = useAlbumStore((state) => state)
+  const { isLoading } = useSWR('/api/albums', fetcher)
+  const { trigger, isMutating } = useSWRMutation('/api/album', fetcherPost)
+  // const [albums, setAlbums] = useState<Array<{ id: string, name: string }>>()
+  // const [albumSelected, setAlbumSelected] = useState('')
   const user = useUserStore((state) => state.user)
   const navigate = useNavigate()
 
-  async function getAllAlbums (): Promise<void> {
-    try {
-      const { data } = await customFetch.get<AlbumsApiResponse>({ url: `/api/albums` })
-      if (error != null) {
-        throw Error('getAllalbums error - ' + error.details)
-      }
-      if (data.length > 0) {
-        console.log('getAllAlbums', data)
-        setAlbums(data)
-      }
-    } catch (e) {
-      console.warn(e)
-    }
-  }
+  // async function getAllAlbums (): Promise<void> {
+  //   try {
+  //     const { data } = await customFetch.get<AlbumsApiResponse>({ url: `/api/albums` })
+  //     if (error != null) {
+  //       throw Error('getAllalbums error - ' + error.details)
+  //     }
+  //     if (data.length > 0) {
+  //       console.log('getAllAlbums', data)
+  //       setAlbums(data)
+  //     }
+  //   } catch (e) {
+  //     console.warn(e)
+  //   }
+  // }
 
-  async function createAlbum (name: string): Promise<void> {
+  async function createAlbum (name: string, albumTypeId: string): Promise<void> {
     try {
-      const { data, error } = await supabase.from('albums').insert({ stickers: ALBUM, name }).select()
-      if (error != null) {
-        throw Error('create empty album - ' + error.details)
-      }
-      if (data.length > 0) {
-        console.log('user', user)
-        const newAlbum = data[0]
-        const { error } = await supabase.from('albums-users').insert({ email: user?.email, album_id: newAlbum.id }).select()
-        if (error != null) {
-          throw Error('album-user error - ' + error.details)
-        }
-        setAlbum(newAlbum.stickers)
-        setIdAlbum(newAlbum.id)
-        navigate('/protected/album')
+      const { data } = await trigger({ name, email: (user as User).email, albumTypeId })
+      if (data) {
+        setIdAlbum(data.id)
+        navigate('/protected/user/album')
       }
     } catch (e) {
       console.warn(e)
@@ -62,53 +86,103 @@ function SelectOrCreateAlbum (): JSX.Element {
   function handlerOnSubmit (ev: React.SyntheticEvent) {
     ev.preventDefault()
     const target = ev.target as typeof ev.target & {
-      albumName: { value: string }
+      albumName: { value: string },
+      albumTypeId: { value: string }
     }
     const albumName = target.albumName.value // typechecks!
-    createAlbum(albumName)
+    const albumTypeId = target.albumTypeId.value 
+    createAlbum(albumName, albumTypeId)
   }
 
-  useEffect(() => {
-    getAllAlbums()
-  }, [])
+  // useEffect(() => {
+  //   getAllAlbums()
+  // }, [])
+
+  if (isLoading) {
+    return <PageLoader />
+  }
 
   return (
-    <Block>
-      {
-        (albums == null) || (albums.length === 0)
-          ? <Block>
-              <Heading size={2}>Crear album</Heading>
-              <form onSubmit={handlerOnSubmit}>
-                <Form.Field>
-                  <Form.Control>
-                    <Form.Label>Nombre del album</Form.Label>
-                    <Form.Input type='text' name='albumName' />
-                  </Form.Control>
-                </Form.Field>
-                <Form.Control>
-                  <Button submit>Confirmar</Button>
-                </Form.Control>
-              </form>
-            </Block>
-          : null
-      }
-      {
-        (albums != null) && albums.length > 1
-          ? <Block>
-            <Form.Field>
-              <Form.Control>
-                <Form.Label>Eligue un album existente</Form.Label>
-                <Form.Select onChange={(ev: React.ChangeEvent<HTMLSelectElement>) => { setAlbumSelected(ev.target.value) }}>
-                  <option selected value='' disabled>Selecciona una opcion</option>
-                  {albums.map(({ name, id }) => (<option value={id} key={id}>{name}</option>))}
-                </Form.Select>
-              </Form.Control>
-            </Form.Field>
-          </Block>
-          : null
-      }
-    </Block>
+    <StyledContainer>
+      <Heading pt={6} size={2}>Crear album</Heading>
+      <Section>
+        <p>
+          Para la creacion de tu album debes escoger el tipo de album y poner un nombre al mismo.
+        </p>
+      </Section>
+      <StyledForm onSubmit={handlerOnSubmit}>
+        <StyledFieldContainer>
+          <Form.Field>
+            <Form.Label htmlFor="albumTypeId">Selecciona el album que vas a completar</Form.Label>
+            <Form.Control>
+              <Form.Select name="albumTypeId">
+                {
+                  ALBUMS.map(({ name, id }) => {
+                    return <option value={id} key={id}>{name}</option>
+                  })
+                }
+              </Form.Select>
+            </Form.Control>
+          </Form.Field>
+          <Form.Field>
+            <Form.Control>
+              <Form.Label htmlFor='albumName'>Nombre del album</Form.Label>
+              <Form.Input type='text' name='albumName' />
+            </Form.Control>
+          </Form.Field>
+        </StyledFieldContainer>
+        <Form.Control>
+          <Button
+            submit
+            fullwidth
+            color='info'
+            outlined='true'
+            loading={isMutating}
+          >
+            Confirmar
+          </Button>
+        </Form.Control>
+      </StyledForm>
+    </StyledContainer>
   )
+
+  // return (
+  //   <Block>
+  //     {
+  //       (da == null) || (albums.length === 0)
+  //         ? <Block>
+  //             <Heading size={2}>Crear album</Heading>
+  //             <form onSubmit={handlerOnSubmit}>
+  //               <Form.Field>
+  //                 <Form.Control>
+  //                   <Form.Label>Nombre del album</Form.Label>
+  //                   <Form.Input type='text' name='albumName' />
+  //                 </Form.Control>
+  //               </Form.Field>
+  //               <Form.Control>
+  //                 <Button submit>Confirmar</Button>
+  //               </Form.Control>
+  //             </form>
+  //           </Block>
+  //         : null
+  //     }
+  //     {
+  //       (albums != null) && albums.length > 1
+  //         ? <Block>
+  //           <Form.Field>
+  //             <Form.Control>
+  //               <Form.Label>Eligue un album existente</Form.Label>
+  //               <Form.Select onChange={(ev: React.ChangeEvent<HTMLSelectElement>) => { setAlbumSelected(ev.target.value) }}>
+  //                 <option selected value='' disabled>Selecciona una opcion</option>
+  //                 {albums.map(({ name, id }) => (<option value={id} key={id}>{name}</option>))}
+  //               </Form.Select>
+  //             </Form.Control>
+  //           </Form.Field>
+  //         </Block>
+  //         : null
+  //     }
+  //   </Block>
+  // )
 }
 
 export default SelectOrCreateAlbum

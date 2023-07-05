@@ -8,7 +8,7 @@ interface Section {
 }
 interface Album { [key: string]: Section }
 
-const ALBUM: Album = {
+export const ALBUM: Album = {
   FCW: {
     figures: [
       {
@@ -2695,11 +2695,3 @@ const ALBUM: Album = {
   }
 }
 
-const ALBUMS = [
-  { name: 'Mundial Fifa masculino 2022', id: 'FIFA_WORLD_CUP_2022' },
-]
-
-export {
-  ALBUM,
-  ALBUMS
-}

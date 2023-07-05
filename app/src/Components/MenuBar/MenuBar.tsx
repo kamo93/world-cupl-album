@@ -11,6 +11,7 @@ const MenuBarContainerStyled = styled(Block)`
   border-top: solid 1px #ececec;
   display: flex;
   flex-wrap: wrap;
+  z-index: 100;
 `
 
 const MENU_ITEMS: ItemProps[] = [

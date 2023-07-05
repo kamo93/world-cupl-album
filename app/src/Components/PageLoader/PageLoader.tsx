@@ -1,6 +1,5 @@
 import { Block, Loader } from 'react-bulma-components'
 import styled from 'styled-components'
-import WithMenuBar from '../../Layouts/WithMenuBar'
 
 const StyledLoader = styled(Loader)`
   width: 200px;
@@ -18,11 +17,9 @@ const ContainerStyled = styled(Block)`
 
 const PageLoader = (): JSX.Element => {
   return (
-    <WithMenuBar>
-      <ContainerStyled>
-        <StyledLoader />
-      </ContainerStyled>
-    </WithMenuBar>
+    <ContainerStyled>
+      <StyledLoader />
+    </ContainerStyled>
   )
 }
 

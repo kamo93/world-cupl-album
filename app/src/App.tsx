@@ -9,8 +9,8 @@ function App (): JSX.Element {
   return (
     <React.StrictMode>
       <BrowserRouter>
-        <ToastContainer 
-          theme="dark"
+        <ToastContainer
+          theme='dark'
         />
         <SupabaseProvider>
           <Router />

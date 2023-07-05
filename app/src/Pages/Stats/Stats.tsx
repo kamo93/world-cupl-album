@@ -10,7 +10,9 @@ function missingPercentage (missingStickersCount: number, total: number): string
 
 const ContainerStatsStyled = styled(Block)`
   min-height: 100vh;
-
+  &.block:not(:last-child) {
+    margin-bottom: 0px;
+  }
 `
 // try animation why literally render everyupdate but react render show problem and its slow
 // right best using styled components and keyframes

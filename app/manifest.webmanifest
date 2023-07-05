@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+  "id": "album-app",
+  "name": "World Cup Album Share",
+  "short_name": "WC album",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "lang": "es",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "public/icon_192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "public/icon_512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "public/icon_512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpuse": "any maskable"
+    }
+  ]
+}

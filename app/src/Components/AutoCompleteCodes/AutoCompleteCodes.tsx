@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Form, Block, Columns, Icon } from 'react-bulma-components'
 import styled from 'styled-components'
-import { ALBUM } from '../../Constants'
+import { ALBUM } from '../../../../share/constants'
 
 const ListContainerStyled = styled(Columns)`
   position: absolute;

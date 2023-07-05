@@ -2,7 +2,6 @@ import { Block, Button, Heading } from 'react-bulma-components'
 import { useSupabaseContext } from '../../Contexts/SupabaseContext'
 import styled from 'styled-components'
 import GoogleLogo from '../../Components/GoogleLogo/GoogleLogo'
-import { ReactNode } from 'react'
 
 const StyledContainer = styled(Block)`
   flex-wrap: nowrap;
