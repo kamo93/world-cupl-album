@@ -26,3 +26,6 @@ dist-ssr
 
 #env files
 .env
+
+# build pwa files dev
+app/dev-dist
