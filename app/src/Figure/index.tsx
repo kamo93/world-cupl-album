@@ -17,14 +17,22 @@ const FigureContainerStyled = styled(Block)`
 
 const RepetedStyled = styled(Block)`
   position: absolute;
-  top: -3px;
-  right: -3px;
-  font-size: 0.65rem;
-  line-height: 0.65rem;
-  border: 1px solid black;
+  top: 1px;
+  right: 3px;
+  border: 2px solid black;
   color: black;
   border-radius: 100%;
   z-index: 10;
+  text-align: center;
+  height: 24px;
+  width: 24px;
+  padding: 4px 0px;
+`
+
+const RepeatedTextStyled = styled.p`
+  font-size: 0.5rem;
+  text-align: center;
+  font-weight: bold;
 `
 
 const ButtonStyled = styled(Button)`
@@ -56,7 +64,9 @@ export default function Figure ({ albumNumber, timesRepeat, isImportant, onClick
 
   return (
     <FigureContainerStyled m='0' p='1'>
-      {timesRepeat >= 2 ? <RepetedStyled marginless textWeight='semibold' p='1'>+ {timesRepeat}</RepetedStyled> : null}
+      {timesRepeat >= 2 ? <RepetedStyled marginless>
+        <RepeatedTextStyled>+ {timesRepeat}</RepeatedTextStyled>
+      </RepetedStyled> : null}
       <ButtonStyled textSize='6' textWeight='light' p='3' m='1' rounded {...colors} onClick={onClick}>
         {albumNumber}
       </ButtonStyled>

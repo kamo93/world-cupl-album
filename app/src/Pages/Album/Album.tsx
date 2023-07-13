@@ -7,6 +7,7 @@ import { Album } from '../../Stores/Album'
 import { User, useUserStore } from '../../Stores/User'
 import { AlbumNameStyled, ContainerStyled, FiltersContainerStyled, RepeatIcon, SubstractIcon } from './StyledComponents'
 import AlbumComponent from './AlbumComponent'
+import { repeatedStickers } from '../../utils'
 
 const ALBUM_SYNC_ACTIONS = {
   add: 'add_sticker',
@@ -62,6 +63,20 @@ const AlbumPage = () => {
     }
   }
 
+  function setRepeatedAlbum () {
+    if (isRepeatedMode) {
+      setIsRepeatedMode(false)
+      setFilterStickers(null)
+    } else {
+      const albumCache = socketData.data.stickers
+      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+      if (albumCache) {
+        setIsRepeatedMode(prevValue => !prevValue)
+        setFilterStickers(repeatedStickers(albumCache))
+      }
+    }
+  }
+
   if (typeof socketData !== 'undefined') {
     // const albumCache = (typeof socketData !== 'undefined') ? socketData.data.stickers : data?.data?.stickers // just for the first render
     const albumCache = socketData.data.stickers // just for the first render
@@ -94,7 +109,7 @@ const AlbumPage = () => {
             color={isRepeatedMode ? 'warning' : ''}
             size='small'
             mr={2}
-            onClick={() => { setIsRepeatedMode(prevValue => !prevValue) }}
+            onClick={setRepeatedAlbum}
           >
             <RepeatIcon
               color='warning'
@@ -118,11 +133,14 @@ const AlbumPage = () => {
             <span>Faltantes</span>
           </Button>
         </FiltersContainerStyled>
-        <AlbumComponent
-          albumList={list}
-          increaseOneOnRepeatSticker={increaseOneOnRepeatSticker}
-          isSubtractMode={isSubtractMode}
-        />
+        <div style={{ backgroundColor: 'gray', overflowY: 'scroll', minHeight: '100%'}}>
+          <AlbumComponent
+            albumList={list}
+            increaseOneOnRepeatSticker={increaseOneOnRepeatSticker}
+            isSubtractMode={isSubtractMode}
+            isRepeatedMode={isRepeatedMode}
+          />
+        </div>
       </ContainerStyled>
     )
   }
