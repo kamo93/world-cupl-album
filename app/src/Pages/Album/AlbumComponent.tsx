@@ -14,6 +14,7 @@ function AlbumComponent ({ albumList, increaseOneOnRepeatSticker, isSubtractMode
     <AlbumContatinerStyled>
       {(albumList !== null)
         ? Object.keys(albumList).map((code) => {
+          if (albumList[code].figures.length === 0) return null
           return (
             <Level.Side key={code}>
               <Level.Item mt={1}>

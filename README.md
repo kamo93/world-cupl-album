@@ -11,7 +11,9 @@ pnpm install
 ## TODO
 
 [] Repeated mode
+    [] socketData should have type
 [] Missing mode ones
+[] add alias routes
 [] An admin so they can or not edit album from other person
 [] clean the backend something hexagone arquitecture for fastify
 [] Add logout button

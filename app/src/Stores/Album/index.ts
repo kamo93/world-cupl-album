@@ -1,4 +1,5 @@
 import create from 'zustand'
+import { missingStickers, getTotalStickers, numberRepeatedStickers } from '../../utils'
 
 export interface Figure {
   value: string
@@ -22,34 +23,6 @@ export interface AlbumState {
   totalMissingStickerCount: () => number
   totalRepeatedStickerCount: () => number
   totalStickers: () => number
-}
-
-function repeatedStickers (album: Album): number {
-  let count: number = 0
-  Object.keys(album).forEach((code) => {
-    album[code].figures
-      .filter(({ repeat }) => repeat > 1)
-      .forEach(({ repeat }) => { count = count + (repeat - 1) })
-  })
-  return count
-}
-
-function missingStickers (album: Album): number {
-  let count: number = 0
-  Object.keys(album).forEach((code) => {
-    const missingStickers = album[code].figures
-      .filter(({ repeat }) => repeat === 0)
-    count = count + missingStickers.length
-  })
-  return count
-}
-
-function getTotalStickers (album: Album): number {
-  let count: number = 0
-  Object.keys(album).forEach((code) => {
-    count = count + album[code].figures.length
-  })
-  return count
 }
 
 export const useAlbumStore = create<AlbumState>()((set, get) => ({
@@ -90,7 +63,7 @@ export const useAlbumStore = create<AlbumState>()((set, get) => ({
   totalRepeatedStickerCount: () => {
     const { album } = get()
     if (typeof album !== 'undefined') {
-      return repeatedStickers(album)
+      return numberRepeatedStickers(album)
     }
     return 0
   },

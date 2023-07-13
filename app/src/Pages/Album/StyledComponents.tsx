@@ -9,7 +9,7 @@ export const AlbumNameStyled = styled(Heading)`
 
 export const SectionStyled = styled(Block)`
   display: grid;
-  grid-template-columns: repeat(6, auto);
+  grid-template-columns: repeat(auto-fill, minmax(56px, 1fr));
 `
 
 export const SubstractIcon = styled(Icon)<{ $isActive: boolean }>`
@@ -41,6 +41,9 @@ export const FiltersContainerStyled = styled(Block)`
 `
 
 export const AlbumContatinerStyled = styled(Block)`
+  min-height: calc(100vh - 3.5rem);
+  background-color: white;
+  margin: 0 1rem;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
