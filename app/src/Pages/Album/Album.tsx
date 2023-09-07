@@ -15,6 +15,15 @@ const ALBUM_SYNC_ACTIONS = {
   set: 'set_album'
 } as const
 
+interface SocketData {
+  data: {
+    name: string
+    stickers: Album
+  }
+  origin: string
+  action: ALBUM_SYNC_ACTIONS_TYPES
+}
+
 type ALBUM_SYNC_ACTIONS_TYPES = typeof ALBUM_SYNC_ACTIONS[keyof typeof ALBUM_SYNC_ACTIONS]
 
 const keySocket = 'ws://localhost:3000/api/album-sync'
@@ -30,7 +39,7 @@ const AlbumPage = () => {
   // TODO check this PR improving types on useSWRSubscription hook
   // https://github.com/vercel/swr/pull/2525
   // TODO(kevin): handle error from useSWRSubscription
-  const { data: socketData } = useSWRSubscription(keySocket, (key, { next }) => {
+  const { data } = useSWRSubscription(keySocket, (key, { next }) => {
     console.log('user', user)
     const socket = new WebSocket(`${key as string}?userEmail=${(user as User).email}`)
     socketRef.current = socket
@@ -50,6 +59,7 @@ const AlbumPage = () => {
       socket.close()
     }
   })
+  const socketData = data as SocketData
 
   function increaseOneOnRepeatSticker (code: string, number: string, isSubtractMode: boolean) {
     if (socketRef.current !== null) {
