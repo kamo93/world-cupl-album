@@ -41,7 +41,6 @@ export const FiltersContainerStyled = styled(Block)`
 `
 
 export const AlbumContatinerStyled = styled(Block)`
-  min-height: calc(100vh - 3.5rem);
   background-color: white;
   margin: 0 0.75rem;
   display: flex;
