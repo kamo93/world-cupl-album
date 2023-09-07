@@ -1,4 +1,4 @@
-import { Block, Heading, Icon } from 'react-bulma-components'
+import { Block, Heading, Icon, Level } from 'react-bulma-components'
 import styled from 'styled-components'
 
 export const AlbumNameStyled = styled(Heading)`
@@ -7,7 +7,7 @@ export const AlbumNameStyled = styled(Heading)`
   }
 `
 
-export const SectionStyled = styled(Block)`
+export const InnerSectionStyled = styled(Block)`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(56px, 1fr));
 `
@@ -43,15 +43,13 @@ export const FiltersContainerStyled = styled(Block)`
 export const AlbumContatinerStyled = styled(Block)`
   min-height: calc(100vh - 3.5rem);
   background-color: white;
-  margin: 0 1rem;
+  margin: 0 0.75rem;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   overflow-y: scroll;
-  padding-top: 1rem;
-  >div:last-child {
-    margin-bottom: 3.8rem;
-  }
+  margin-top: 0.50rem;
+  margin-bottom: 13.50rem;
 `
 
 export const ContainerStyled = styled(Block)`
@@ -61,5 +59,19 @@ export const ContainerStyled = styled(Block)`
   flex-direction: column;
   &.block:not(:last-child) {
     margin-bottom: 0px;
+  }
+`
+
+export const ScrollAlbumStyled = styled.div`
+  background-color: #d9d8d8;
+  overflow-y: scroll;
+  min-height: 100%;
+`
+
+export const SectionStyled = styled(Level.Side)`
+  border-top: 4px solid rgba(162,171,206, 0.4);
+  padding-bottom: 0.50rem;
+  &:last-child {
+    border-bottom: 4px solid rgba(162,171,206, 0.4);
   }
 `

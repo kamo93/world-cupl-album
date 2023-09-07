@@ -76,5 +76,8 @@
     "vite-plugin-pwa": "^0.14.7",
     "vite-plugin-swc-react-refresh": "^2.2.1",
     "workbox-window": "^6.5.4"
+  },
+  "ts-standard": {
+    "project": "./tsconfig.json"
   }
 }

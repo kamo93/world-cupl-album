@@ -5,7 +5,7 @@ import useSWRSubscription from 'swr/subscription'
 import AutoCompleteCodes from '../../Components/AutoCompleteCodes/AutoCompleteCodes'
 import { Album } from '../../Stores/Album'
 import { User, useUserStore } from '../../Stores/User'
-import { AlbumNameStyled, ContainerStyled, FiltersContainerStyled, RepeatIcon, SubstractIcon } from './StyledComponents'
+import { AlbumNameStyled, ContainerStyled, FiltersContainerStyled, RepeatIcon, ScrollAlbumStyled, SubstractIcon } from './StyledComponents'
 import AlbumComponent from './AlbumComponent'
 import { repeatedStickers } from '../../utils'
 
@@ -22,8 +22,10 @@ const keySocket = 'ws://localhost:3000/api/album-sync'
 const AlbumPage = () => {
   const [isSubtractMode, setIsSubtractMode] = useState(false)
   const [isRepeatedMode, setIsRepeatedMode] = useState(false)
-  const socketRef = useRef<WebSocket | null>(null)
   const [filterStickers, setFilterStickers] = useState<Album | null>(null)
+
+  const socketRef = useRef<WebSocket | null>(null)
+
   const { user } = useUserStore((state) => state)
   // TODO check this PR improving types on useSWRSubscription hook
   // https://github.com/vercel/swr/pull/2525
@@ -133,14 +135,13 @@ const AlbumPage = () => {
             <span>Faltantes</span>
           </Button>
         </FiltersContainerStyled>
-        <div style={{ backgroundColor: 'gray', overflowY: 'scroll', minHeight: '100%'}}>
+        <ScrollAlbumStyled>
           <AlbumComponent
             albumList={list}
             increaseOneOnRepeatSticker={increaseOneOnRepeatSticker}
             isSubtractMode={isSubtractMode}
-            isRepeatedMode={isRepeatedMode}
           />
-        </div>
+        </ScrollAlbumStyled>
       </ContainerStyled>
     )
   }

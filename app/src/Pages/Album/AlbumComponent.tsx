@@ -1,7 +1,7 @@
 import { Heading, Level } from 'react-bulma-components'
 import Figure from '../../Figure'
 import { Album } from '../../Stores/Album'
-import { AlbumContatinerStyled, SectionStyled } from './StyledComponents'
+import { AlbumContatinerStyled, InnerSectionStyled, SectionStyled } from './StyledComponents'
 
 interface AlbumComponentProps {
   albumList: Album
@@ -16,13 +16,13 @@ function AlbumComponent ({ albumList, increaseOneOnRepeatSticker, isSubtractMode
         ? Object.keys(albumList).map((code) => {
           if (albumList[code].figures.length === 0) return null
           return (
-            <Level.Side key={code}>
-              <Level.Item mt={1}>
+            <SectionStyled key={code}>
+              <Level.Item mt={3} mb={1}>
                 <Heading>
                   {code}
                 </Heading>
               </Level.Item>
-              <SectionStyled justifyContent='center'>
+              <InnerSectionStyled justifyContent='center'>
                 {albumList[code].figures.map(({ value, repeat, isImportant }) => {
                   return (
                     <Figure
@@ -34,8 +34,8 @@ function AlbumComponent ({ albumList, increaseOneOnRepeatSticker, isSubtractMode
                     />
                   )
                 })}
-              </SectionStyled>
-            </Level.Side>
+              </InnerSectionStyled>
+            </SectionStyled>
           )
         })
         : null}

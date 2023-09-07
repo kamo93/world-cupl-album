@@ -19,20 +19,20 @@ const RepetedStyled = styled(Block)`
   position: absolute;
   top: 1px;
   right: 3px;
-  border: 2px solid black;
-  color: black;
+  background-color: rgba(255, 90, 90, 0.83);
   border-radius: 100%;
   z-index: 10;
   text-align: center;
-  height: 24px;
-  width: 24px;
-  padding: 4px 0px;
+  height: 22px;
+  width: 22px;
 `
 
 const RepeatedTextStyled = styled.p`
-  font-size: 0.5rem;
+  font-size: 0.6rem;
   text-align: center;
   font-weight: bold;
+  color: white;
+  line-height: 22px;
 `
 
 const ButtonStyled = styled(Button)`
