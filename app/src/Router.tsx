@@ -65,15 +65,11 @@ async function fetcher (url: string, { arg: userEmail }: { arg: string }) {
 
 function Router (): JSX.Element {
   const { supabase } = useSupabaseContext()
-  const { trigger, data } = useSWRMutation('/api/album', fetcher, { populateCache: true })
-  console.log('data',data)
-  const {cache} = useSWRConfig()
-  console.log('data cache router',cache.get('/api/album'))
+  const { trigger } = useSWRMutation('/api/album', fetcher, { populateCache: true })
   const { addUser } = useUserStore((state) => state)
   // const { data, isLoading, error } = useSWR(shouldGetAlbum ? `/api/album?selected=true&userEmail=${(user as User).email}` : null, fetcher)
   const navigate = useNavigate()
   const { setAlbum, setIdAlbum } = useAlbumStore((state) => state)
-  console.count('render')
 
   async function userHaveAlbum (user: User): Promise<void> {
     // if (user) {

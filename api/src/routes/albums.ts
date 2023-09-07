@@ -3,6 +3,7 @@ import { RealtimeChannel, RealtimeChannelSendResponse } from '@supabase/supabase
 import { FastifySchema } from 'fastify'
 import { FromSchema } from 'json-schema-to-ts'
 import { ALBUM } from '../../../share/constants/index.js'
+
 export interface Figure {
   value: string
   repeat: number
