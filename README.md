@@ -10,8 +10,8 @@ pnpm install
 
 ## TODO
 
-[] Repeated mode
-    [] socketData should have type
+[x] Repeated mode
+[] BUG: socketData should have type
 [] BUG: scroll despear when goes all down on album page
 [] BUG: When login the init page doesn't rederict to login page
 [] Add logout button
