@@ -15,7 +15,6 @@ import WithMenuBar from './Layouts/WithMenuBar'
 import Stats from './Pages/Stats/Stats'
 import Settings from './Pages/Settings/Settings'
 import customFetch, { CustomFetchError } from './customFetch'
-import useSWR, { useSWRConfig } from 'swr'
 import useSWRMutation from 'swr/mutation'
 
 interface User {
@@ -39,11 +38,6 @@ function ProtectRoute (): JSX.Element {
 }
 
 const validAuthEvents: AuthChangeEvent[] = ['SIGNED_IN', 'TOKEN_REFRESHED']
-
-interface UserAlbumIds {
-  id: string
-  stickers: Album
-}
 
 interface AlbumApiResponse {
   id: string
@@ -107,7 +101,7 @@ function Router (): JSX.Element {
   }
 
   useEffect(() => {
-    getUserSession()
+    void getUserSession()
   }, [])
 
   useEffect(() => {

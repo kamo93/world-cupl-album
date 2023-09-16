@@ -27,7 +27,7 @@ const customFetch = {
     }
     throw new CustomFetchError({ statusCode: res.status, message: jsonResponse.message ?? 'Http error get' })
   },
-  async post<DataResponse> ({ url, body }: { url: string, body: BodyInit }) {
+  async post<DataResponse> ({ url, body }: { url: string, body: unknown }) {
     console.log({ body })
     const res = await fetch(
       url,
@@ -44,7 +44,7 @@ const customFetch = {
     }
     throw new CustomFetchError({ statusCode: res.status, message: jsonResponse.message ?? 'Http error post' })
   },
-  async put<DataResponse> ({ url, body }: { url: string, body: BodyInit }) {
+  async put<DataResponse> ({ url, body }: { url: string, body: unknown }) {
     console.log({ body })
     const res = await fetch(
       url,

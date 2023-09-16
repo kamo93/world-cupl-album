@@ -1,6 +1,7 @@
 import { FastifyInstance as FI } from 'fastify'
 import { SupabaseClient } from '@supabase/supabase-js'
 import { Transporter } from 'nodemailer'
+import { Database } from './database.types'
 
 export interface FastifyMailerNamedInstance {
   [namespace: string]: Transporter
@@ -21,7 +22,7 @@ declare module 'fastify' {
       SUPABASE_URL: string
       SUPABASE_ANON_KEY: string
     }
-    supabase: SupabaseClient<any, 'public', any >
+    supabase: SupabaseClient<Database, 'public'>
     mailer: FastifyMailer
   }
 }

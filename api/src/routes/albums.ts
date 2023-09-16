@@ -3,6 +3,7 @@ import { RealtimeChannel, RealtimeChannelSendResponse } from '@supabase/supabase
 import { FastifySchema } from 'fastify'
 import { FromSchema } from 'json-schema-to-ts'
 import { ALBUM } from '../../../share/constants/index.js'
+import { Json } from '../../types/database.types.js'
 
 export interface Figure {
   value: string
@@ -132,8 +133,12 @@ const album: FastifyPluginAsyncJsonSchemaToTs = async (fastify): Promise<void> =
         await res.code(500).send({ message: error.hint })
       }
       if (data !== null) {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        return { data: data.map(({ name, id, album_members }) => ({ name, id, selected: album_members[0].selected })) }
+        return {
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          data: data.map(({ name, id, album_members }) => {
+            return { name, id, selected: Array.isArray(album_members) ? album_members[0].selected : album_members?.selected }
+          })
+        }
       }
     }
   )
@@ -241,7 +246,16 @@ const album: FastifyPluginAsyncJsonSchemaToTs = async (fastify): Promise<void> =
       const { name, email, albumTypeId } = req.body
       const { data } = await fastify.supabase
         .from('albums')
-        .insert({ stickers: ALBUM, name, owner: email, album_type_id: albumTypeId }).select()
+        .insert({
+          // did this cause since adding Database using supabase types generator
+          // and the DB the stickers is a generic Json type
+          // a bad thing of using Json as type in db can use generators effectively
+          stickers: ALBUM as unknown as Json,
+          name,
+          owner: email,
+          album_type_id: albumTypeId
+        })
+        .select()
       fastify.log.info('Album test')
       fastify.log.info(ALBUM)
       if (data?.length === 0 || data === null) {
@@ -290,7 +304,7 @@ const album: FastifyPluginAsyncJsonSchemaToTs = async (fastify): Promise<void> =
       if (data !== null && (data.length > 0)) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         stickers = data[0].stickers
-        const albumId = data[0].id as string
+        const albumId = data[0].id
         channel = fastify.supabase.channel(
           `channel:album:${albumId}`,
           { config: { broadcast: { self: true } } }

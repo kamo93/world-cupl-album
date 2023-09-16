@@ -37,8 +37,10 @@ function Settings () {
   const [albumIdSelected, setAlbumIdSelected] = useState('')
   console.count('settings')
   const user = useUserStore((state) => state.user)
+  // TODO error not used err fix this manage some how the error
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data: responseAlbum, isLoading, error, mutate } = useSWRImmutable(`/api/albums/user/${(user as User).email}`, fetcher, { fallback: <div>....hola cargando</div> })
-  const { data: responseUser, isLoading: isLoadingUser, error: errorUser, mutate: userMutate } = useSWRImmutable(`/api/users/album/${albumId as string}`, fetcherUser)
+  const { data: responseUser, isLoading: isLoadingUser, error: errorUser } = useSWRImmutable(`/api/users/album/${albumId as string}`, fetcherUser)
   console.log('api/usesr/albums', { responseUser, isLoadingUser, errorUser })
 
   const openChangeAlbumSelectedModal = (id: string, selected: boolean) => {

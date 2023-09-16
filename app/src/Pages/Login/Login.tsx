@@ -71,7 +71,7 @@ function Login (): JSX.Element {
         <StyledTitle subtitle justifyContent='center'>Completa el album solo o con algun amigo.</StyledTitle>
       </StyledContainerTitle>
       <StyledContainerButton marginless>
-        <Button fullwidth onClick={() => { openGmailOauth() as void }}>
+        <Button fullwidth onClick={() => { void openGmailOauth() }}>
           <StyledGoogleLogo>
             <GoogleLogo />
           </StyledGoogleLogo>

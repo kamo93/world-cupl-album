@@ -8,6 +8,7 @@ import fastifyWS from '@fastify/websocket'
 import { fileURLToPath } from 'url'
 import AutoLoad, { AutoloadPluginOptions } from '@fastify/autoload'
 import { IncomingMessage, ServerResponse } from 'http'
+import { type Database } from '../types/database.types'
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const __filename = fileURLToPath(import.meta.url)
@@ -26,7 +27,7 @@ const createSupabaseClient = (fastify: FastifyInstance<RawServerDefault, Incomin
   const supabaseUrl = fastify.config.SUPABASE_URL
   const supabaseAnonKey = fastify.config.SUPABASE_ANON_KEY
 
-  const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
     auth: {
       storageKey: 'album-auth'
     }

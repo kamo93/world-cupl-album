@@ -39,9 +39,9 @@ const AlbumPage = () => {
   // TODO check this PR improving types on useSWRSubscription hook
   // https://github.com/vercel/swr/pull/2525
   // TODO(kevin): handle error from useSWRSubscription
-  const { data } = useSWRSubscription(keySocket, (key, { next }) => {
+  const { data } = useSWRSubscription<SocketData, { err: string }, string>(keySocket, (key, { next }) => {
     console.log('user', user)
-    const socket = new WebSocket(`${key as string}?userEmail=${(user as User).email}`)
+    const socket = new WebSocket(`${key}?userEmail=${(user as User).email}`)
     socketRef.current = socket
     socket.addEventListener('message', (event) => {
       const dataParse = JSON.parse(event.data)
@@ -53,13 +53,13 @@ const AlbumPage = () => {
       next(null, dataParse)
     })
     socket.addEventListener('error', (event) => {
-      next(event.error)
+      next({ err: (event as ErrorEvent).message })
     })
     return () => {
       socket.close()
     }
   })
-  const socketData = data as SocketData
+  const socketData = data
 
   function increaseOneOnRepeatSticker (code: string, number: string, isSubtractMode: boolean) {
     if (socketRef.current !== null) {
@@ -68,7 +68,7 @@ const AlbumPage = () => {
   }
 
   function filterAlbum (codeFilter: string | null) {
-    if ((codeFilter !== null) && (socketData.data !== null)) {
+    if ((codeFilter !== null) && (typeof socketData !== 'undefined')) {
       setFilterStickers({ [codeFilter]: socketData.data.stickers[codeFilter] })
     } else {
       setFilterStickers(null)
@@ -80,6 +80,7 @@ const AlbumPage = () => {
       setIsRepeatedMode(false)
       setFilterStickers(null)
     } else {
+      if (typeof socketData === 'undefined') return
       const albumCache = socketData.data.stickers
       // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
       if (albumCache) {

@@ -1,9 +1,8 @@
 import { Form, Block, Heading, Button, Section } from 'react-bulma-components'
 import { useNavigate } from 'react-router-dom'
 import { ALBUMS } from '../../../../share/constants'
-import { useSupabaseContext } from '../../Contexts/SupabaseContext'
 import customFetch from '../../customFetch'
-import { useAlbumStore } from '../../Stores/Album'
+import { Album, useAlbumStore } from '../../Stores/Album'
 import { User, useUserStore } from '../../Stores/User'
 import useSWR from 'swr'
 import useSWRMutation from 'swr/mutation'
@@ -17,6 +16,16 @@ interface AlbumsApiResponse {
   }>
 }
 
+interface AlbumsPostApiResponse {
+  data?: {
+    stickers: Album
+    name: string
+    owner: string
+    album_type_id: string
+    id: string
+  }
+}
+
 const StyledContainer = styled(Block)`
   max-height: 100vh;
   height: 100vh;
@@ -24,6 +33,7 @@ const StyledContainer = styled(Block)`
   display: flex;
   flex-direction: column;
 `
+
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
@@ -39,18 +49,18 @@ const StyledFieldContainer = styled.div`
   
 `
 
-async function fetcher (url: string, {}) {
+async function fetcher (url: string) {
   return await customFetch.get<AlbumsApiResponse>({ url })
 }
 
 async function fetcherPost (url: string, { arg }: { arg: { name: string, email: string, albumTypeId: string } }) {
-  return await customFetch.post({ url, body: { name: arg.name, email: arg.email, albumTypeId: arg.albumTypeId } })
+  return await customFetch.post<AlbumsPostApiResponse>({ url, body: { name: arg.name, email: arg.email, albumTypeId: arg.albumTypeId } })
 }
 
 function SelectOrCreateAlbum (): JSX.Element {
   const { setIdAlbum } = useAlbumStore((state) => state)
-  const { isLoading } = useSWR('/api/albums', fetcher)
-  const { trigger, isMutating } = useSWRMutation('/api/album', fetcherPost)
+  const { isLoading } = useSWR<AlbumsApiResponse>('/api/albums', fetcher)
+  const { trigger, isMutating } = useSWRMutation<AlbumsPostApiResponse, { error: string }, '/api/album', { name: string, email: string, albumTypeId: string }, AlbumsPostApiResponse>('/api/album', fetcherPost)
   // const [albums, setAlbums] = useState<Array<{ id: string, name: string }>>()
   // const [albumSelected, setAlbumSelected] = useState('')
   const user = useUserStore((state) => state.user)
@@ -74,7 +84,7 @@ function SelectOrCreateAlbum (): JSX.Element {
   async function createAlbum (name: string, albumTypeId: string): Promise<void> {
     try {
       const { data } = await trigger({ name, email: (user as User).email, albumTypeId })
-      if (data) {
+      if (data !== null && typeof data !== 'undefined') {
         setIdAlbum(data.id)
         navigate('/protected/user/album')
       }
@@ -86,11 +96,12 @@ function SelectOrCreateAlbum (): JSX.Element {
   function handlerOnSubmit (ev: React.SyntheticEvent) {
     ev.preventDefault()
     const target = ev.target as typeof ev.target & {
-      albumName: { value: string },
+      albumName: { value: string }
       albumTypeId: { value: string }
     }
     const albumName = target.albumName.value // typechecks!
-    const albumTypeId = target.albumTypeId.value 
+    const albumTypeId = target.albumTypeId.value
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     createAlbum(albumName, albumTypeId)
   }
 
@@ -113,9 +124,9 @@ function SelectOrCreateAlbum (): JSX.Element {
       <StyledForm onSubmit={handlerOnSubmit}>
         <StyledFieldContainer>
           <Form.Field>
-            <Form.Label htmlFor="albumTypeId">Selecciona el album que vas a completar</Form.Label>
+            <Form.Label htmlFor='albumTypeId'>Selecciona el album que vas a completar</Form.Label>
             <Form.Control>
-              <Form.Select name="albumTypeId">
+              <Form.Select name='albumTypeId'>
                 {
                   ALBUMS.map(({ name, id }) => {
                     return <option value={id} key={id}>{name}</option>
@@ -136,7 +147,7 @@ function SelectOrCreateAlbum (): JSX.Element {
             submit
             fullwidth
             color='info'
-            outlined='true'
+            outlined
             loading={isMutating}
           >
             Confirmar

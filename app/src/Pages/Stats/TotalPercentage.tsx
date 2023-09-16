@@ -1,4 +1,4 @@
-import styled, { css, keyframes } from "styled-components"
+import styled, { css, keyframes, Keyframes } from 'styled-components'
 
 const TOTAL_DEGREES = 270
 const ANIMATED_STEPS = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
