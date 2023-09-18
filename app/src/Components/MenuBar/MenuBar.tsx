@@ -3,15 +3,17 @@ import styled from 'styled-components'
 import Item, { ItemProps } from './Item'
 
 const MenuBarContainerStyled = styled(Block)`
-  position: fixed;
-  bottom: 0;
   height: 3.5rem;
   width: 100%;
   background-color: #f4f4f4;
   border-top: solid 1px #ececec;
   display: flex;
   flex-wrap: wrap;
+  flex: 0 0 auto;
   z-index: 100;
+  -webkit-box-shadow: -1px -6px 15px -3px rgba(153,137,153,1);
+  -moz-box-shadow: -1px -6px 15px -3px rgba(153,137,153,1);
+  box-shadow: -1px -6px 15px -3px rgba(153,137,153,1);
 `
 
 const MENU_ITEMS: ItemProps[] = [

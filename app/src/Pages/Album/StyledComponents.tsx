@@ -28,6 +28,14 @@ export const RepeatIcon = styled(Icon)<{ $isActive: boolean }>`
   color: ${({ $isActive }) => $isActive ? 'white !important' : ''}
 `
 
+export const ContainerStyled = styled(Block)`
+overflow-y: hidden;
+display: flex;
+flex-direction: column;
+&.block:not(:last-child) {
+  margin-bottom: 0px;
+}
+`
 export const FiltersContainerStyled = styled(Block)`
   width: 100%;
   z-index: 10;
@@ -41,36 +49,27 @@ export const FiltersContainerStyled = styled(Block)`
 `
 
 export const AlbumContatinerStyled = styled(Block)`
-  background-color: white;
+  background-color: transparent;
   margin: 0 0.75rem;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
-  overflow-y: scroll;
   margin-top: 0.50rem;
-  margin-bottom: 13.50rem;
-`
-
-export const ContainerStyled = styled(Block)`
-  overflow-y: hidden;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  &.block:not(:last-child) {
-    margin-bottom: 0px;
-  }
 `
 
 export const ScrollAlbumStyled = styled.div`
   background-color: #d9d8d8;
   overflow-y: scroll;
-  min-height: 100%;
+  flex: 0 1 auto;
+  display: flex;
+  flex-direction: column
 `
 
 export const SectionStyled = styled(Level.Side)`
+  background-color: white;
   border-top: 4px solid rgba(162,171,206, 0.4);
   padding-bottom: 0.50rem;
   &:last-child {
     border-bottom: 4px solid rgba(162,171,206, 0.4);
+    margin-bottom: 2rem;
   }
 `
