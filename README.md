@@ -15,8 +15,10 @@ pnpm install
     - [x] socketData APP
     - [x] socketData api
     > Solve using supabase types generators
-- [ ] BUG: scroll despear when goes all down on album page
+- [x] BUG: scroll desapear when goes all down on album page
+- [ ] Add prettier to the eslint config
 - [ ] BUG: When login the init page doesn't rederict to login page
+- [ ] BUG: effect about the album that hides on the header
 - [ ] Add logout button
 - [ ] Missing mode ones
 - [ ] Use a best practices to create small routes and divide in resposibilities the files has all

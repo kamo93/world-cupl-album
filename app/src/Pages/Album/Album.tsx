@@ -1,13 +1,12 @@
 import { useRef, useState } from 'react'
-import { Button, Icon } from 'react-bulma-components'
 import { Slide, toast } from 'react-toastify'
 import useSWRSubscription from 'swr/subscription'
-import AutoCompleteCodes from '../../Components/AutoCompleteCodes/AutoCompleteCodes'
 import { Album } from '../../Stores/Album'
 import { User, useUserStore } from '../../Stores/User'
-import { AlbumNameStyled, ContainerStyled, FiltersContainerStyled, RepeatIcon, ScrollAlbumStyled, SubstractIcon } from './StyledComponents'
+import { AlbumNameStyled, ContainerStyled, FiltersContainerStyled, ScrollAlbumStyled } from './StyledComponents'
 import AlbumComponent from './AlbumComponent'
 import { repeatedStickers } from '../../utils'
+import Controls from './Controls'
 
 const ALBUM_SYNC_ACTIONS = {
   add: 'add_sticker',
@@ -99,52 +98,7 @@ const AlbumPage = () => {
       <ContainerStyled>
         <FiltersContainerStyled mb={0}>
           <AlbumNameStyled size={5} weight='semibold'>{socketData.data.name}</AlbumNameStyled>
-          <AutoCompleteCodes
-            onItemSelected={filterAlbum}
-          />
-          <Button
-            color={isSubtractMode ? 'danger' : ''}
-            size='small'
-            mr={2}
-            onClick={() => { setIsSubtractMode(prevValue => !prevValue) }}
-          >
-            <SubstractIcon
-              color='danger'
-              size='small'
-              mr={2}
-              $isActive={isSubtractMode}
-            >
-              <i className='fa-solid fa-minus' />
-            </SubstractIcon>
-            <span>Restar</span>
-          </Button>
-          <Button
-            color={isRepeatedMode ? 'warning' : ''}
-            size='small'
-            mr={2}
-            onClick={setRepeatedAlbum}
-          >
-            <RepeatIcon
-              color='warning'
-              size='large'
-              mr={2}
-              $isActive={isRepeatedMode}
-            >
-              <i className='fa-solid fa-repeat' />
-            </RepeatIcon>
-            <span>Repetidas</span>
-          </Button>
-          <Button color='' size='small'>
-            <Icon
-              color='link'
-              size='small'
-              mr={2}
-              onClick={() => { setIsSubtractMode(prevValue => !prevValue) }}
-            >
-              <i className='fa-solid fa-ghost' />
-            </Icon>
-            <span>Faltantes</span>
-          </Button>
+          <Controls erraseStickers={() => { setIsSubtractMode(prevValue => !prevValue) }} filterAlbum={filterAlbum} isRepeatedMode={isRepeatedMode} isSubtractMode={isSubtractMode} repeatedStickers={setRepeatedAlbum} />
         </FiltersContainerStyled>
         <ScrollAlbumStyled>
           <AlbumComponent

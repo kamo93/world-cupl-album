@@ -16,6 +16,7 @@ import Stats from './Pages/Stats/Stats'
 import Settings from './Pages/Settings/Settings'
 import customFetch, { CustomFetchError } from './customFetch'
 import useSWRMutation from 'swr/mutation'
+import MenuBarLayout from './Layouts/WithMenuBar'
 
 interface User {
   email: string
@@ -136,7 +137,7 @@ function Router (): JSX.Element {
       <Route path='/login' element={<Login />} />
       <Route path='/protected' element={<ProtectRoute />}>
         <Route path='/protected/select-album' element={<SelectOrCreateAlbum />} />
-        <Route path='/protected/user' element={<Testlayout />}>
+        <Route path='/protected/user' element={<MenuBarLayout />}>
           <Route path='/protected/user/album' element={<AlbumPage />} />
           <Route path='/protected/user/stats' element={<Stats />} />
           <Route path='/protected/user/settings' element={<Settings />} />
@@ -144,14 +145,6 @@ function Router (): JSX.Element {
       </Route>
       <Route path='*' element={<Cover />} />
     </Routes>
-  )
-}
-
-function Testlayout (): JSX.Element {
-  return (
-    <WithMenuBar>
-      <Outlet />
-    </WithMenuBar>
   )
 }
 

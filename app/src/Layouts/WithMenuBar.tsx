@@ -1,16 +1,13 @@
+import { Outlet } from 'react-router-dom'
 import MenuBar from '../Components/MenuBar/MenuBar'
 
-interface WithMenuBarProps {
-  children: JSX.Element
-}
-
-function WithMenuBar ({ children }: WithMenuBarProps): JSX.Element {
+function MenuBarLayout (): JSX.Element {
   return (
-    <div>
-      {children}
+    <>
+      <Outlet />
       <MenuBar />
-    </div>
+    </>
   )
 }
 
-export default WithMenuBar
+export default MenuBarLayout
