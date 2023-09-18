@@ -7,6 +7,8 @@ const MenuBarContainerStyled = styled(Block)`
   width: 100%;
   background-color: #f4f4f4;
   border-top: solid 1px #ececec;
+  /* position: fixed; */
+  /* bottom: 0; */
   display: flex;
   flex-wrap: wrap;
   flex: 0 0 auto;

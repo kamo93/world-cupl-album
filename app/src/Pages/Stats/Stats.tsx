@@ -17,7 +17,7 @@ function Stats (): JSX.Element {
   const getTotalStickerCount = useAlbumStore((state) => state.totalStickers)
 
   return (
-    <ContainerStatsStyled display='flex' flexDirection='column' justifyContent='center'>
+    <ContainerStatsStyled>
       <TotalPercentage percentageCompleted={Number(missingPercentage(missingStickerCount(), getTotalStickerCount()))} />
       <Stat label='Total' value={`${getTotalStickerCount() - missingStickerCount()}`} />
       <Stat label='Faltantes' value={`${missingStickerCount()}`} />

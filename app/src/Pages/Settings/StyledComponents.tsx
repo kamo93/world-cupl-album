@@ -2,7 +2,14 @@ import { Block, Icon } from "react-bulma-components"
 import styled from "styled-components"
 
 export const ContainerStyled = styled(Block)`
-padding-top: 50px;
+  padding-top: 50px;
+  overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
+  &.block:not(:last-child) {
+    margin-bottom: 0px;
+  }
 `
 
 export const AlbumsContainerStyled = styled.div`

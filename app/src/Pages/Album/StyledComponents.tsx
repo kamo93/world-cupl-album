@@ -29,13 +29,14 @@ export const RepeatIcon = styled(Icon)<{ $isActive: boolean }>`
 `
 
 export const ContainerStyled = styled(Block)`
-overflow-y: hidden;
-display: flex;
-flex-direction: column;
-&.block:not(:last-child) {
-  margin-bottom: 0px;
-}
+  overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
+  &.block:not(:last-child) {
+    margin-bottom: 0px;
+  };
 `
+
 export const FiltersContainerStyled = styled(Block)`
   width: 100%;
   z-index: 10;
