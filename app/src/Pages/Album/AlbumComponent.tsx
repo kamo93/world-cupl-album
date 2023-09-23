@@ -4,7 +4,7 @@ import { Album } from '../../Stores/Album'
 import { AlbumContatinerStyled, InnerSectionStyled, SectionStyled } from './StyledComponents'
 
 interface AlbumComponentProps {
-  albumList: Album
+  albumList: Album | null
   increaseOneOnRepeatSticker: (code: string, value: string, isSubtractMode: boolean) => void
   isSubtractMode: boolean
 }

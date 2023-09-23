@@ -29,6 +29,7 @@ export const RepeatIcon = styled(Icon)<{ $isActive: boolean }>`
 `
 
 export const ContainerStyled = styled(Block)`
+  min-height: calc(100% - 3.5rem);
   overflow-y: hidden;
   display: flex;
   flex-direction: column;
