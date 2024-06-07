@@ -1,5 +1,5 @@
-import { Block } from 'react-bulma-components'
-import styled from 'styled-components'
+import { Block } from "react-bulma-components";
+import styled from "styled-components";
 
 export const ContainerStatsStyled = styled(Block)`
   overflow-y: hidden;
@@ -10,4 +10,4 @@ export const ContainerStatsStyled = styled(Block)`
   &.block:not(:last-child) {
     margin-bottom: 0px;
   }
-`
+`;

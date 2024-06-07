@@ -1,10 +1,16 @@
 // DEPRECATED
 export class CustomFetchError extends Error {
-  statusCode: number
-  constructor ({ statusCode, message }: { statusCode: number, message: string }) {
-    super()
-    this.statusCode = statusCode
-    this.message = message
+  statusCode: number;
+  constructor({
+    statusCode,
+    message,
+  }: {
+    statusCode: number;
+    message: string;
+  }) {
+    super();
+    this.statusCode = statusCode;
+    this.message = message;
   }
 }
 
@@ -20,49 +26,54 @@ export class CustomFetchError extends Error {
 // }
 const customFetch = {
   async get<T>({ url }: { url: string }): Promise<T> {
-    const res = await fetch(url, { method: 'GET' })
-    const jsonResponse = await res.json()
+    const res = await fetch(url, { method: "GET" });
+    const jsonResponse = await res.json();
     if (res.ok) {
-      return jsonResponse as T
+      return jsonResponse as T;
     }
-    throw new CustomFetchError({ statusCode: res.status, message: jsonResponse.message ?? 'Http error get' })
+    throw new CustomFetchError({
+      statusCode: res.status,
+      message: jsonResponse.message ?? "Http error get",
+    });
   },
-  async post<DataResponse> ({ url, body }: { url: string, body: unknown }) {
-    console.log({ body })
-    const res = await fetch(
-      url,
-      {
-        method: 'POST',
-        body: JSON.stringify(body),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-    const jsonResponse = await res.json()
+  async post<DataResponse>({ url, body }: { url: string; body: unknown }) {
+    console.log({ body });
+    const res = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const jsonResponse = await res.json();
     if (res.ok) {
-      return jsonResponse as DataResponse
+      return jsonResponse as DataResponse;
     }
-    throw new CustomFetchError({ statusCode: res.status, message: jsonResponse.message ?? 'Http error post' })
+    throw new CustomFetchError({
+      statusCode: res.status,
+      message: jsonResponse.message ?? "Http error post",
+    });
   },
-  async put<DataResponse> ({ url, body }: { url: string, body: unknown }) {
-    console.log({ body })
-    const res = await fetch(
-      url,
-      {
-        method: 'PUT',
-        body: JSON.stringify(body),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-    console.log('res', res)
-    const jsonResponse = await res.json()
-    console.log('res', jsonResponse)
+  async put<DataResponse>({ url, body }: { url: string; body: unknown }) {
+    console.log({ body });
+    const res = await fetch(url, {
+      method: "PUT",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    console.log("res", res);
+    const jsonResponse = await res.json();
+    console.log("res", jsonResponse);
     if (res.ok) {
-      return jsonResponse as DataResponse
+      return jsonResponse as DataResponse;
     }
-    throw new CustomFetchError({ statusCode: res.status, message: jsonResponse.message ?? 'Http error post' })
-  }
-}
+    throw new CustomFetchError({
+      statusCode: res.status,
+      message: jsonResponse.message ?? "Http error post",
+    });
+  },
+};
 
-export default customFetch
+export default customFetch;

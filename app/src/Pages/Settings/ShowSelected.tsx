@@ -1,19 +1,19 @@
-import { IconStyled } from './StyledComponents'
+import { IconStyled } from "./StyledComponents";
 
 interface ShowSelectedProps {
-  selected: boolean
+  selected: boolean;
 }
 
-function ShowSelected ({ selected }: ShowSelectedProps) {
+function ShowSelected({ selected }: ShowSelectedProps) {
   if (selected) {
     return (
       <IconStyled>
-        <i className='fa-regular fa-circle-check' />
+        <i className="fa-regular fa-circle-check" />
       </IconStyled>
-    )
+    );
   }
 
-  return null
+  return null;
 }
 
-export default ShowSelected
+export default ShowSelected;
