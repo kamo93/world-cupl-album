@@ -1,13 +1,25 @@
 {
   "$schema": "https://json.schemastore.org/eslintrc.json",
-  "extends": ["./node_modules/ts-standard/eslintrc.json"],
+  "extends": [
+    "./node_modules/ts-standard/eslintrc.json",
+    "prettier"
+  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "project": ["tsconfig.json", "api/tsconfig.json"]
   },
-  "plugins": ["react-refresh"],
+  "plugins": [
+    "react-refresh",
+    "prettier"
+  ],
   "rules": {
     "react-refresh/only-export-components": "warn",
-    "@typescript-eslint/explicit-function-return-type": "off"
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": false
+      }
+    ]
   }
 }

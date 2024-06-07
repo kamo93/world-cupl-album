@@ -1,104 +1,141 @@
-import { useRef, useState } from 'react'
-import { Slide, toast } from 'react-toastify'
-import useSWRSubscription from 'swr/subscription'
-import { Album } from '../../Stores/Album'
-import { User, useUserStore } from '../../Stores/User'
-import { AlbumNameStyled, ContainerStyled, FiltersContainerStyled, ScrollAlbumStyled } from './StyledComponents'
-import AlbumComponent from './AlbumComponent'
-import { repeatedStickers } from '../../utils'
-import Controls from './Controls'
+import { useRef, useState } from "react";
+import { Slide, toast } from "react-toastify";
+import useSWRSubscription from "swr/subscription";
+import { Album } from "../../Stores/Album";
+import { User, useUserStore } from "../../Stores/User";
+import {
+  AlbumNameStyled,
+  ContainerStyled,
+  FiltersContainerStyled,
+  ScrollAlbumStyled,
+} from "./StyledComponents";
+import AlbumComponent from "./AlbumComponent";
+import { repeatedStickers } from "../../utils";
+import Controls from "./Controls";
 
 const ALBUM_SYNC_ACTIONS = {
-  add: 'add_sticker',
-  remove: 'remove_sticker',
-  set: 'set_album'
-} as const
+  add: "add_sticker",
+  remove: "remove_sticker",
+  set: "set_album",
+} as const;
 
 interface SocketData {
   data: {
-    name: string
-    stickers: Album
-  }
-  origin: string
-  action: ALBUM_SYNC_ACTIONS_TYPES
+    name: string;
+    stickers: Album;
+  };
+  origin: string;
+  action: ALBUM_SYNC_ACTIONS_TYPES;
 }
 
-type ALBUM_SYNC_ACTIONS_TYPES = typeof ALBUM_SYNC_ACTIONS[keyof typeof ALBUM_SYNC_ACTIONS]
+type ALBUM_SYNC_ACTIONS_TYPES =
+  (typeof ALBUM_SYNC_ACTIONS)[keyof typeof ALBUM_SYNC_ACTIONS];
 
-const keySocket = 'ws://localhost:3000/api/album-sync'
+const keySocket = "ws://localhost:3000/api/album-sync";
 
 const AlbumPage = () => {
-  const [isSubtractMode, setIsSubtractMode] = useState(false)
-  const [isRepeatedMode, setIsRepeatedMode] = useState(false)
-  const [filterStickers, setFilterStickers] = useState<Album | null>(null)
+  const [isSubtractMode, setIsSubtractMode] = useState(false);
+  const [isRepeatedMode, setIsRepeatedMode] = useState(false);
+  const [filterStickers, setFilterStickers] = useState<Album | null>(null);
 
-  const socketRef = useRef<WebSocket | null>(null)
+  const socketRef = useRef<WebSocket | null>(null);
 
-  const { user } = useUserStore((state) => state)
+  const { user } = useUserStore((state) => state);
   // TODO check this PR improving types on useSWRSubscription hook
   // https://github.com/vercel/swr/pull/2525
   // TODO(kevin): handle error from useSWRSubscription
-  const { data } = useSWRSubscription<SocketData, { err: string }, string>(keySocket, (key, { next }) => {
-    console.log('user', user)
-    const socket = new WebSocket(`${key}?userEmail=${(user as User).email}`)
-    socketRef.current = socket
-    socket.addEventListener('message', (event) => {
-      const dataParse = JSON.parse(event.data)
-      const origin = dataParse.origin as string
-      const action = dataParse.action as ALBUM_SYNC_ACTIONS_TYPES
-      if (action !== 'set_album' && origin !== (user as User).email) {
-        toast(`${origin} update album.`, { type: 'info', position: 'bottom-center', transition: Slide, autoClose: 2000 })
-      }
-      next(null, dataParse)
-    })
-    socket.addEventListener('error', (event) => {
-      next({ err: (event as ErrorEvent).message })
-    })
-    return () => {
-      socket.close()
-    }
-  })
-  const socketData = data
+  const { data } = useSWRSubscription<SocketData, { err: string }, string>(
+    keySocket,
+    (key, { next }) => {
+      console.log("user", user);
+      const socket = new WebSocket(`${key}?userEmail=${(user as User).email}`);
+      socketRef.current = socket;
+      socket.addEventListener("message", (event) => {
+        const dataParse = JSON.parse(event.data);
+        const origin = dataParse.origin as string;
+        const action = dataParse.action as ALBUM_SYNC_ACTIONS_TYPES;
+        if (action !== "set_album" && origin !== (user as User).email) {
+          toast(`${origin} update album.`, {
+            type: "info",
+            position: "bottom-center",
+            transition: Slide,
+            autoClose: 2000,
+          });
+        }
+        next(null, dataParse);
+      });
+      socket.addEventListener("error", (event) => {
+        next({ err: (event as ErrorEvent).message });
+      });
+      return () => {
+        socket.close();
+      };
+    },
+  );
+  const socketData = data;
 
-  function increaseOneOnRepeatSticker (code: string, number: string, isSubtractMode: boolean) {
+  function increaseOneOnRepeatSticker(
+    code: string,
+    number: string,
+    isSubtractMode: boolean,
+  ) {
     if (socketRef.current !== null) {
-      socketRef.current.send(JSON.stringify({ action: isSubtractMode ? ALBUM_SYNC_ACTIONS.remove : ALBUM_SYNC_ACTIONS.add, code, number, origin: (user as User).email }))
+      socketRef.current.send(
+        JSON.stringify({
+          action: isSubtractMode
+            ? ALBUM_SYNC_ACTIONS.remove
+            : ALBUM_SYNC_ACTIONS.add,
+          code,
+          number,
+          origin: (user as User).email,
+        }),
+      );
     }
   }
 
-  function filterAlbum (codeFilter: string | null) {
-    if ((codeFilter !== null) && (typeof socketData !== 'undefined')) {
-      setFilterStickers({ [codeFilter]: socketData.data.stickers[codeFilter] })
+  function filterAlbum(codeFilter: string | null) {
+    if (codeFilter !== null && typeof socketData !== "undefined") {
+      setFilterStickers({ [codeFilter]: socketData.data.stickers[codeFilter] });
     } else {
-      setFilterStickers(null)
+      setFilterStickers(null);
     }
   }
 
-  function setRepeatedAlbum () {
+  function setRepeatedAlbum() {
     if (isRepeatedMode) {
-      setIsRepeatedMode(false)
-      setFilterStickers(null)
+      setIsRepeatedMode(false);
+      setFilterStickers(null);
     } else {
-      if (typeof socketData === 'undefined') return
-      const albumCache = socketData.data.stickers
+      if (typeof socketData === "undefined") return;
+      const albumCache = socketData.data.stickers;
       // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
       if (albumCache) {
-        setIsRepeatedMode(prevValue => !prevValue)
-        setFilterStickers(repeatedStickers(albumCache))
+        setIsRepeatedMode((prevValue) => !prevValue);
+        setFilterStickers(repeatedStickers(albumCache));
       }
     }
   }
 
-  if (typeof socketData !== 'undefined') {
+  if (typeof socketData !== "undefined") {
     // const albumCache = (typeof socketData !== 'undefined') ? socketData.data.stickers : data?.data?.stickers // just for the first render
-    const albumCache = socketData.data.stickers // just for the first render
-    const list = filterStickers !== null ? filterStickers : albumCache
+    const albumCache = socketData.data.stickers; // just for the first render
+    const list = filterStickers !== null ? filterStickers : albumCache;
 
     return (
       <ContainerStyled>
         <FiltersContainerStyled mb={0}>
-          <AlbumNameStyled size={5} weight='semibold'>{socketData.data.name}</AlbumNameStyled>
-          <Controls erraseStickers={() => { setIsSubtractMode(prevValue => !prevValue) }} filterAlbum={filterAlbum} isRepeatedMode={isRepeatedMode} isSubtractMode={isSubtractMode} repeatedStickers={setRepeatedAlbum} />
+          <AlbumNameStyled size={5} weight="semibold">
+            {socketData.data.name}
+          </AlbumNameStyled>
+          <Controls
+            erraseStickers={() => {
+              setIsSubtractMode((prevValue) => !prevValue);
+            }}
+            filterAlbum={filterAlbum}
+            isRepeatedMode={isRepeatedMode}
+            isSubtractMode={isSubtractMode}
+            repeatedStickers={setRepeatedAlbum}
+          />
         </FiltersContainerStyled>
         <ScrollAlbumStyled>
           <AlbumComponent
@@ -108,10 +145,10 @@ const AlbumPage = () => {
           />
         </ScrollAlbumStyled>
       </ContainerStyled>
-    )
+    );
   }
 
-  return null
-}
+  return null;
+};
 
-export default AlbumPage
+export default AlbumPage;

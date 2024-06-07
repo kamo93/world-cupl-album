@@ -1,19 +1,19 @@
-import { Icon, Block } from 'react-bulma-components'
-import { NavLink } from 'react-router-dom'
-import styled from 'styled-components'
+import { Icon, Block } from "react-bulma-components";
+import { NavLink } from "react-router-dom";
+import styled from "styled-components";
 
 const MenuItemContainerStyled = styled(NavLink)`
   display: flex;
   flex: 1;
   justify-content: center;
-`
+`;
 
 const MenuIconStyled = styled(Icon)`
   display: flex;
-`
+`;
 
 interface ButtonStyledProps {
-  readonly $isActive: boolean
+  readonly $isActive: boolean;
 }
 
 const ButtonStyled = styled(Block)<ButtonStyledProps>`
@@ -34,9 +34,9 @@ const ButtonStyled = styled(Block)<ButtonStyledProps>`
         span.has-text-dark {
           color: #3e8ed0 !important;
         }
-      `
+      `;
     }
-    return ''
+    return "";
   }}
   &:focus, &:active {
     outline: none !important;
@@ -45,33 +45,30 @@ const ButtonStyled = styled(Block)<ButtonStyledProps>`
   .icon:first-child:not(:last-child) {
     margin: 0;
   }
-`
+`;
 
 export interface ItemProps {
-  label: string
-  icon: 'book-open' | 'chart-line' | 'gears'
-  routePath: 'album' | 'stats' | 'settings'
+  label: string;
+  icon: "book-open" | "chart-line" | "gears";
+  routePath: "album" | "stats" | "settings";
 }
 
-function Item ({ label, icon, routePath }: ItemProps): JSX.Element {
+function Item({ label, icon, routePath }: ItemProps): JSX.Element {
   return (
     <MenuItemContainerStyled to={`/protected/user/${routePath}`}>
       {({ isActive }) => {
-        console.log('hi', typeof isActive)
+        console.log("hi", typeof isActive);
         return (
           <ButtonStyled $isActive={isActive}>
-            <MenuIconStyled
-              color='dark'
-              size='medium'
-            >
+            <MenuIconStyled color="dark" size="medium">
               <i className={`fa-solid fa-${icon} fa-lg`} />
             </MenuIconStyled>
             <span>{label}</span>
           </ButtonStyled>
-        )
+        );
       }}
     </MenuItemContainerStyled>
-  )
+  );
 }
 
-export default Item
+export default Item;
