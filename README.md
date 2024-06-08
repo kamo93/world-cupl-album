@@ -8,6 +8,10 @@ Create a `.env.local` with the same key of the `.env` file and use your supabase
 pnpm install
 ```
 
+
+## Dev decisions (know there a offcial name for this decisions)
+- Eslint using throw pnpm run not eslint server fix on every save, on the other hand typescript do run while working
+
 ## TODO
 
 - [x] Repeated mode
@@ -17,9 +21,13 @@ pnpm install
     > Solve using supabase types generators
 - [x] BUG: scroll desapear when goes all down on album page
     - [x] Refactor menu bar fix album page broke the rest of the pages
-- [ ] Add prettier to the eslint config
+- [x] Add prettier to the eslint config
 - [ ] BUG: When login the init page doesn't rederict to login page
 - [ ] BUG: effect about the album that hides on the header
+- [ ] IMPROVE: Try removing the React.Context -> supabase client since you have
+  layer for the supabase database using the api, right now the supabase client
+  its being used only for the login probably there is better patter to do that
+  without creating a whole context
 - [ ] Add logout button
 - [ ] Missing mode ones
 - [ ] Use a best practices to create small routes and divide in resposibilities the files has all
