@@ -95,7 +95,7 @@ function Router(): JSX.Element {
 
   async function getUserSession(): Promise<void> {
     try {
-      console.log('1')
+      console.log("1");
       const { error } = await supabase.auth.refreshSession();
       if (error != null) {
         // TODO add logger instead
@@ -111,7 +111,7 @@ function Router(): JSX.Element {
   }, []);
 
   useEffect(() => {
-    console.log('2')
+    console.log("2");
     const { data: authListener } = supabase.auth.onAuthStateChange(
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
       async (event, session) => {
