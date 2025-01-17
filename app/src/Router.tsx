@@ -60,6 +60,7 @@ async function fetcher(url: string, { arg: userEmail }: { arg: string }) {
 }
 
 function Router(): JSX.Element {
+  console.count("render router");
   const { supabase } = useSupabaseContext();
   const { trigger } = useSWRMutation("/api/album", fetcher, {
     populateCache: true,
@@ -94,15 +95,15 @@ function Router(): JSX.Element {
   }
 
   async function getUserSession(): Promise<void> {
-    try {
-      console.log("1");
-      const { error } = await supabase.auth.refreshSession();
-      if (error != null) {
-        // TODO add logger instead
-        throw new Error("Error refreshSession");
-      }
-    } catch (e) {
-      console.error(e);
+    console.log("1");
+    const { error } = await supabase.auth.refreshSession();
+    if (error != null) {
+      console.error("----------- Supabase error ------------");
+      console.error(error.message);
+      console.error("----------- Supabase error ------------");
+      navigate("/login");
+      // TODO add logger instead
+      // throw new Error("Error refreshSession");
     }
   }
 
