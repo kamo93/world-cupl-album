@@ -64,6 +64,7 @@ export default defineConfig({
   ],
   esbuild: { jsx: 'automatic' },
   server: {
+    port: 5173, // vite default
     proxy: {
       '/api': {
         target: 'http://localhost:3000'

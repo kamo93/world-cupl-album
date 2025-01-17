@@ -8,6 +8,11 @@ Create a `.env.local` with the same key of the `.env` file and use your supabase
 pnpm install
 ```
 
+### Run locally
+Can use `pnpn run dev` will run api and app on dev on the same proccess terminal, api will run on localhost:3000 and app on 5137
+Also can run each one on indepent so is easy to see logs for each app
+frontend app `pnpm run app:dev`
+backend app `pnpm run api:dev`
 
 ## Dev decisions (know there a offcial name for this decisions)
 - Eslint using throw pnpm run not eslint server fix on every save, on the other hand typescript do run while working
@@ -22,7 +27,9 @@ pnpm install
 - [x] BUG: scroll desapear when goes all down on album page
     - [x] Refactor menu bar fix album page broke the rest of the pages
 - [x] Add prettier to the eslint config
-- [ ] BUG: When login the init page doesn't rederict to login page
+- [X] BUG: Url without path not redirect to login page, just show the "splash screen"
+- [ ] BUG: Check undefined when starting the backend
+- [ ] Check why have different user on the config and from github how to sync
 - [ ] BUG: effect about the album that hides on the header
 - [ ] IMPROVE: Try removing the React.Context -> supabase client since you have
   layer for the supabase database using the api, right now the supabase client
