@@ -107,7 +107,10 @@ const app: FastifyPluginAsync<AppOptions> = async (
       options: { ...opts, prefix: "/api" },
     })
     .ready((err: Error | null) => {
-      if (err !== null) console.error(err);
+    if (typeof err !== "undefined" && err !== null) {
+        console.error("******************** fastify error starting ********************");
+        console.error(err?.message);
+      };
       fastify.decorate("supabase", createSupabaseClient(fastify));
     });
 };
